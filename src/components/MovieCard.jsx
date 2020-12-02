@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/MovieCard.css";
+import "../css/MovieCard.scss";
 
 const MovieCard = props => {
   const {
@@ -19,10 +19,10 @@ const MovieCard = props => {
           <h5 className="card-title">
             {title} {(rating/10*100).toFixed() + '%'}
           </h5>
-          <p className="card-text">
+          {/* <p className="card-text">
             This is a longer card with supporting text below as a natural
             lead-in to additional content. This content is a little bit longer.
-          </p>
+          </p> */}
           <p className="card-text">
             <small className="text-muted">Release Date {release_date}</small>
           </p>
