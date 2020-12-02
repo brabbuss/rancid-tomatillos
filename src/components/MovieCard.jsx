@@ -13,7 +13,7 @@ const MovieCard = props => {
 
   return (
     <React.Fragment>
-      <div className="card card-wrapper">
+      <div style={{ flex: "13rem" }} className="card">
         <img className="card-img-top" src={poster} alt="Card image cap" />
         <div className="card-body">
           <h5 className="card-title">
