@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import fakeMovieData from "../data/fakeMovieData";
 import MovieCard from "./MovieCard";
+import axios from 'axios'
 
 class Movies extends Component {
   state = {
-    movies: fakeMovieData.movies,
+    movies: []
   };
 
-  componentDidMount() {
-    console.log(this.state.movies);
+  async componentDidMount() {
+    const { data: moviesData } = await axios.get('https://rancid-tomatillos.herokuapp.com/api/v2/movies');
+    this.setState({
+      movies: moviesData.movies
+    })
   }
 
   render() {
