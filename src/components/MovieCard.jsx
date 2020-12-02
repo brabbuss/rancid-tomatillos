@@ -13,11 +13,11 @@ const MovieCard = props => {
 
   return (
     <React.Fragment>
-      <div style={{ flex: "13rem" }} className="card">
+      <div style={{ flex: "13rem" }} className="card mt-3">
         <img className="card-img-top" src={poster} alt="Card image cap" />
         <div className="card-body">
           <h5 className="card-title">
-            {title} {rating.toFixed(1)}
+            {title} {(rating/10*100).toFixed() + '%'}
           </h5>
           <p className="card-text">
             This is a longer card with supporting text below as a natural
