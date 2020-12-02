@@ -15,7 +15,7 @@ class Movies extends Component {
     const { movies } = this.state;
 
     return (
-      <div style={{flexWrap: "wrap"}} className="card-deck">
+      <div className="card-deck">
         {movies.map(movie => (
           <MovieCard key={movie.id} data={movie} />
         ))}
