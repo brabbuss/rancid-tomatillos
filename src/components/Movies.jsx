@@ -1,11 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import MovieCard from "./MovieCard";
-import { Route } from "react-router-dom";
 class Movies extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   state = {
     movies: [],
@@ -26,7 +22,7 @@ class Movies extends Component {
     return (
       <div className="card-deck">
         {movies.map(movie => (
-          <MovieCard key={movie.id} data={movie} onRoute={this.props.onRoute} />
+          <MovieCard key={movie.id} data={movie} getMovieDetails={this.props.getMovieDetails} />
         ))}
       </div>
     );
