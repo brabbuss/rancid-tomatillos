@@ -6,7 +6,6 @@ const MovieCard = props => {
   const {
     id,
     poster_path: poster,
-    backdrop_path: backdrop,
     title,
     average_rating: rating,
     release_date,
@@ -15,10 +14,10 @@ const MovieCard = props => {
   return (
     
       <div
-        style={{ flex: "13rem", cursor: "pointer" }}
+        style={{ flex: "13rem", cursor: "pointer", border: "none" }}
         className="card mt-3"
-        onClick={() => props.onRoute(id)}>
-        <Link to="/movies"><img className="card-img-top" src={poster} alt="" /></Link>
+        onClick={() => props.getMovieDetails(id)}>
+        <Link to={`/movies/${id}`}><img className="card-img-top" src={poster} alt="" /></Link>
         <div className="card-body">
           <h5 className="card-title">
             {title} {((rating / 10) * 100).toFixed() + "%"}

@@ -22,7 +22,7 @@ class Movies extends Component {
     return (
       <div className="card-deck">
         {movies.map(movie => (
-          <MovieCard key={movie.id} data={movie} onRoute={this.props.onRoute} />
+          <MovieCard key={movie.id} data={movie} getMovieDetails={this.props.getMovieDetails} />
         ))}
       </div>
     );
