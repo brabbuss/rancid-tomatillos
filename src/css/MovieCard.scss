@@ -1,0 +1,7 @@
+@import "./vars";
+@import "./mixins";
+
+.card-wrapper {
+  margin-bottom: $posterMargins;
+  font: 'poppins';
+}
