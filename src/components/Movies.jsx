@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MovieCard from "./MovieCard";
-import { getMovieData } from "./utilities/apiCalls";
+import { getMovieDataAPI } from "./utilities/apiCalls";
 
 class Movies extends Component {
   state = {
@@ -8,7 +8,7 @@ class Movies extends Component {
   };
 
   componentDidMount = async () => {
-    this.setState({ movies: await getMovieData() });
+    this.setState({ movies: await getMovieDataAPI() });
   };
 
   render() {
