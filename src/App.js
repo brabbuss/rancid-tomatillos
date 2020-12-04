@@ -3,22 +3,17 @@ import "./App.css";
 import Movies from "./components/Movies";
 import MovieDetails from "./components/MovieDetails";
 import { Route, Switch } from "react-router-dom";
-import axios from "axios";
+import { getMovieDetailsAPI } from "./components/utilities/apiCalls";
+
 class App extends Component {
   state = {
     selectedMovie: {},
+    selectedMovieVideo: ''
   };
 
   getMovieDetails = async id => {
-    const { data } = await axios.get(
-      `https://rancid-tomatillos.herokuapp.com/api/v2/movies/${id}`
-    );
-    this.setState({ selectedMovie: data.movie });
-    console.log(this.state);
+    this.setState({ selectedMovie: await getMovieDetailsAPI(id) });
   };
-
-  // async componentDidMount() {
-  // }
 
   render() {
     return (
