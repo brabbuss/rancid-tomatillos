@@ -8,7 +8,8 @@ class Movies extends Component {
   };
 
   componentDidMount = async () => {
-    this.setState({ movies: await getMovieDataAPI() });
+    const moviesData = await getMovieDataAPI()
+    typeof moviesData === 'number' ? console.log(moviesData) : this.setState({ movies: moviesData });
   };
 
   render() {
