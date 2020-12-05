@@ -3,7 +3,7 @@ import "./App.css";
 import Movies from "./components/Movies";
 import MovieDetails from "./components/MovieDetails";
 import ErrorPage from './errorPages/ErrorPage'
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { getMovieDetailsAPI } from "./components/utilities/apiCalls";
 
 class App extends Component {
@@ -20,10 +20,11 @@ class App extends Component {
 
   handleError = errorCode => {
     this.setState({statusError: true, statusErrorCode: errorCode})
-    console.log(errorCode, this.state)
   }
 
   render() {
+    const {statusError, statusErrorCode} = this.state
+
     return (
       <main className="bg-dark">
         <Switch>
@@ -34,15 +35,16 @@ class App extends Component {
             )}
           />
           <Route
-            path="/error"
+            path="/error"         // ******* NEED TO PASS ERROR CODE ON REDIRECT *******
             render={props => (
-              <ErrorPage errorCode={this.state.statusErrorCode} {...props} />
+              !statusError ? <Redirect to="/" /> : <ErrorPage errorCode={statusErrorCode} {...props} />
             )}
           />
           <Route
             path="/"
             render={props => (
-              <Movies getMovieDetails={this.getMovieDetails} handleError={this.handleError} {...props} />
+              statusError ? <Redirect to="/error" /> : <Movies getMovieDetails={this.getMovieDetails} handleError={this.handleError} {...props} />
+              // <Movies getMovieDetails={this.getMovieDetails} handleError={this.handleError} {...props} />
             )}
           />
         </Switch>
