@@ -8,12 +8,17 @@ import { getMovieDetailsAPI } from "./components/utilities/apiCalls";
 class App extends Component {
   state = {
     selectedMovie: {},
-    selectedMovieVideo: ''
+    selectedMovieVideo: '',
+    statusError: false
   };
 
   getMovieDetails = async id => {
     this.setState({ selectedMovie: await getMovieDetailsAPI(id) });
   };
+
+  handleError = errorCode => {
+    console.log(errorCode)
+  }
 
   render() {
     return (
@@ -28,7 +33,7 @@ class App extends Component {
           <Route
             path="/"
             render={props => (
-              <Movies getMovieDetails={this.getMovieDetails} {...props} />
+              <Movies getMovieDetails={this.getMovieDetails} handleError={this.handleError} {...props} />
             )}
           />
         </Switch>
