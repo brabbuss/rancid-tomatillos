@@ -3,13 +3,17 @@ import MovieCard from "./MovieCard";
 import { getMovieDataAPI } from "./utilities/apiCalls";
 
 class Movies extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   state = {
     movies: [],
   };
 
   componentDidMount = async () => {
     const moviesData = await getMovieDataAPI()
-    typeof moviesData === 'number' ? console.log(moviesData) : this.setState({ movies: moviesData });
+    typeof moviesData === 'number' ? this.props.handleError(moviesData) : this.setState({ movies: moviesData });
   };
 
   render() {
