@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Movies from "./components/Movies";
 import MovieDetails from "./components/MovieDetails";
-import ErrorPage from './components/ErrorPage'
+import ErrorPage from './errorPages/ErrorPage'
 import { Route, Switch } from "react-router-dom";
 import { getMovieDetailsAPI } from "./components/utilities/apiCalls";
 
