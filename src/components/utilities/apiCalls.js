@@ -1,12 +1,3 @@
-// why does axios only work inside of the Movies component and not when imported?
-
-// export const getMovieData = async () => {
-//   const movieData = await axios.get(
-//     "https://rancid-tomatillos.herokuapp.com/api/v2/movies"
-//   );
-//   return movieData.movies
-// }
-
 export const getMovieDataAPI = async () => {
   // const response = await fetch("https://httpstat.us/500");   // test endpoint for 500 errors
   const response = await fetch(
@@ -17,8 +8,7 @@ export const getMovieDataAPI = async () => {
     const jsonResponse = await response.json();
     return jsonResponse.movies;
   } else {
-    // Handle 500 errors
-    console.log(response);
+    // Handle server errors
     console.log(
       `Error! Code: ${response.status}
 There seems to be a problem with the server. Please refresh the page.
@@ -29,20 +19,29 @@ There seems to be a problem with the server. Please refresh the page.
 };
 
 export const getMovieDetailsAPI = async id => {
-  const response = await fetch(
-    `https://rancid-tomatillos.herokuapp.com/api/v2/movies/${id}`
-  );
+  const response = await fetch("https://httpstat.us/500");   // test endpoint for 500 errors
+  // const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${id}`);
   if (response.status >= 200 && response.status <= 299) {
     const jsonResponse = await response.json();
     return jsonResponse.movie;
   } else {
-    // Handle 500 errors
-    console.log(response);
     console.log(
       `Error! Code: ${response.status}
-There seems to be a problem with the server. Please refresh the page.
+Something went wrong trying to find this movie. Please refresh the page.
     `
     );
     return response.status;
   }
 };
+
+
+
+
+// why does axios only work inside of the Movies component and not when imported?
+
+// export const getMovieData = async () => {
+//   const movieData = await axios.get(
+//     "https://rancid-tomatillos.herokuapp.com/api/v2/movies"
+//   );
+//   return movieData.movies
+// }
