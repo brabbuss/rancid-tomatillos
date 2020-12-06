@@ -22,14 +22,14 @@ class App extends Component {
     const moviesData = await getMovieDataAPI();
     typeof moviesData === "number"
       ? this.handleError(moviesData)
-      : this.setState({ movies: moviesData });
+      : this.setState({ statusError: false, movies: moviesData });
   };
 
   getMovieDetails = async id => {
-    this.setState({
-      statusError: false,
-      selectedMovie: await getMovieDetailsAPI(id),
-    });
+    const movieDetails = await getMovieDetailsAPI(id);
+    typeof movieDetails === "number"
+    ? this.handleError(movieDetails)
+    : this.setState({ statusError: false, selectedMovie: movieDetails });
   };
 
   handleError = errorCode => {
@@ -45,8 +45,11 @@ class App extends Component {
           <Route
             path="/movies/:movie_id"
             render={props => (
+              statusError ? (
+                <Redirect to="/error" />
+              ) : (
               <MovieDetails data={selectedMovie} {...props} />
-            )}
+            ))}
           />
           <Route
             path="/error"
