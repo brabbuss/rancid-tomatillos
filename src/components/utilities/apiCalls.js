@@ -7,19 +7,9 @@
 //   return movieData.movies
 // }
 
-// why do I need to put async/await in both this function and inside the movies component method?
-
-// export const getMovieDataAPI = async () => {
-//   const movieData = await fetch(
-//     "https://rancid-tomatillos.herokuapp.com/api/v2/movies"
-//   ).then(response => response.json());
-//   return movieData.movies;
-// };
-
-
 export const getMovieDataAPI = async () => {
-  const response = await fetch("https://httpstat.us/500");
-  // const response = await fetch("https://rancid-tomatillos.herokuapp.com/api/v2/movies");
+  // const response = await fetch("https://httpstat.us/500");   // test endpoint for 500 errors
+  const response = await fetch("https://rancid-tomatillos.herokuapp.com/api/v2/movies");
   if (response.status >= 200 && response.status <= 299) {
     // No errors
     const jsonResponse = await response.json();

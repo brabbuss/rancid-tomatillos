@@ -1,62 +1,81 @@
 import React, { Component } from "react";
 import "./App.css";
-import Movies from "./components/tbd/Movies";
 import MovieDetails from "./components/MovieDetails";
 import MovieCard from "./components/MovieCard";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import {
   getMovieDataAPI,
   getMovieDetailsAPI,
 } from "./components/utilities/apiCalls";
+import ErrorPage from "./components/errorPages/ErrorPage";
 
 class App extends Component {
   state = {
     selectedMovie: {},
     selectedMovieVideo: "",
     movies: [],
+    statusError: false,
+    statusErrorCode: "",
   };
 
   componentDidMount = async () => {
-    this.setState({ movies: await getMovieDataAPI() });
+    const moviesData = await getMovieDataAPI();
+    typeof moviesData === "number"
+      ? this.handleError(moviesData)
+      : this.setState({ movies: moviesData });
   };
 
-  getMovieDetails = async (id) => {
-    this.setState({ selectedMovie: await getMovieDetailsAPI(id) });
+  getMovieDetails = async id => {
+    this.setState({
+      statusError: false,
+      selectedMovie: await getMovieDetailsAPI(id),
+    });
   };
 
   handleError = errorCode => {
-    this.setState({statusError: true, statusErrorCode: errorCode})
-  }
+    this.setState({ statusError: true, statusErrorCode: errorCode });
+  };
 
   render() {
-    const {statusError, statusErrorCode, movies} = this.state
+    const { statusError, statusErrorCode, selectedMovie, movies } = this.state;
 
     return (
       <main className="bg-dark">
         <Switch>
           <Route
             path="/movies/:movie_id"
-            render={(props) => (
-              <MovieDetails data={this.state.selectedMovie} {...props} />
+            render={props => (
+              <MovieDetails data={selectedMovie} {...props} />
             )}
           />
-          <React.Fragment>
-            <div className="card-deck">
-              {movies.map((movie) => (
-                <MovieCard
-                  key={movie.id}
-                  data={movie}
-                  getMovieDetails={this.getMovieDetails}
-                />
-              ))}
-            </div>
-          </React.Fragment>
-          {/* <Route
+          <Route
+            path="/error"
+            render={props =>
+              !statusError ? (
+                <Redirect to="/" />
+              ) : (
+                <ErrorPage errorCode={statusErrorCode} {...props} />
+              )
+            }
+          />
+          <Route
             path="/"
-            render={(props) => (
-              <Movies getMovieDetails={this.getMovieDetails} {...props} />
-            )}
-          /> */}
+            render={props =>
+              statusError ? (
+                <Redirect to="/error" />
+              ) : (
+                <div className="card-deck">
+                  {movies.map(movie => (
+                    <MovieCard
+                      key={movie.id}
+                      data={movie}
+                      getMovieDetails={this.getMovieDetails}
+                    />
+                  ))}
+                </div>
+              )
+            }
+          />
         </Switch>
       </main>
     );
