@@ -1,21 +1,27 @@
 import React, { Component } from "react";
 import "./App.css";
-import Movies from "./components/Movies";
+import Movies from "./components/tbd/Movies";
 import MovieDetails from "./components/MovieDetails";
-import ErrorPage from './errorPages/ErrorPage'
-import { Route, Switch, Redirect } from "react-router-dom";
-import { getMovieDetailsAPI } from "./components/utilities/apiCalls";
+import MovieCard from "./components/MovieCard";
+import { Route, Switch } from "react-router-dom";
+import {
+  getMovieDataAPI,
+  getMovieDetailsAPI,
+} from "./components/utilities/apiCalls";
 
 class App extends Component {
   state = {
     selectedMovie: {},
-    selectedMovieVideo: '',
-    statusError: false,
-    statusErrorCode: ''
+    selectedMovieVideo: "",
+    movies: [],
   };
 
-  getMovieDetails = async id => {
-    this.setState({ statusError: false, selectedMovie: await getMovieDetailsAPI(id) });
+  componentDidMount = async () => {
+    this.setState({ movies: await getMovieDataAPI() });
+  };
+
+  getMovieDetails = async (id) => {
+    this.setState({ selectedMovie: await getMovieDetailsAPI(id) });
   };
 
   handleError = errorCode => {
@@ -23,30 +29,34 @@ class App extends Component {
   }
 
   render() {
-    const {statusError, statusErrorCode} = this.state
+    const {statusError, statusErrorCode, movies} = this.state
 
     return (
       <main className="bg-dark">
         <Switch>
           <Route
             path="/movies/:movie_id"
-            render={props => (
+            render={(props) => (
               <MovieDetails data={this.state.selectedMovie} {...props} />
             )}
           />
-          <Route
-            path="/error"         // ******* NEED TO PASS ERROR CODE ON REDIRECT *******
-            render={props => (
-              !statusError ? <Redirect to="/" /> : <ErrorPage errorCode={statusErrorCode} {...props} />
-            )}
-          />
-          <Route
+          <React.Fragment>
+            <div className="card-deck">
+              {movies.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  data={movie}
+                  getMovieDetails={this.getMovieDetails}
+                />
+              ))}
+            </div>
+          </React.Fragment>
+          {/* <Route
             path="/"
-            render={props => (
-              statusError ? <Redirect to="/error" /> : <Movies getMovieDetails={this.getMovieDetails} handleError={this.handleError} {...props} />
-              // <Movies getMovieDetails={this.getMovieDetails} handleError={this.handleError} {...props} />
+            render={(props) => (
+              <Movies getMovieDetails={this.getMovieDetails} {...props} />
             )}
-          />
+          /> */}
         </Switch>
       </main>
     );
