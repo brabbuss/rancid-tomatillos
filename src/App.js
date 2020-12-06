@@ -70,6 +70,7 @@ class App extends Component {
                       key={movie.id}
                       data={movie}
                       getMovieDetails={this.getMovieDetails}
+                      {...props}
                     />
                   ))}
                 </div>
