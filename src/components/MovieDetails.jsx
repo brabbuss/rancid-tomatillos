@@ -1,6 +1,7 @@
 import React from "react";
 import "../css/MovieDetails.scss";
 
+
 const MovieDetails = props => {
   const {
     title,
@@ -30,10 +31,12 @@ const MovieDetails = props => {
         <p className="card-text">
           <small className="text-muted">Release Date {release_date}</small>
         </p>
+        {tagline && <p>{tagline}</p>}
         <p>{overview}</p>
         <p>{genres}</p>
-        <p>{budget}</p>
-        <p>{revenue}</p>
+        {budget > 0 && <p> Budget: ${budget.toLocaleString()}</p>}
+        {revenue > 0 && <p> Revenue: ${revenue.toLocaleString()}</p>}
+        {runtime > 0 && <p>Runtime: {runtime} minutes</p>}
       </div>
     </React.Fragment>
   );

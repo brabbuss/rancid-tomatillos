@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import MovieCard from "./MovieCard";
-import { getMovieDataAPI } from "./utilities/apiCalls";
+import MovieCard from "../MovieCard";
+import { getMovieDataAPI } from "../utilities/apiCalls";
 
 class Movies extends Component {
   state = {
