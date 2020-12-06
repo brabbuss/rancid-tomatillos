@@ -9,26 +9,40 @@
 
 export const getMovieDataAPI = async () => {
   // const response = await fetch("https://httpstat.us/500");   // test endpoint for 500 errors
-  const response = await fetch("https://rancid-tomatillos.herokuapp.com/api/v2/movies");
+  const response = await fetch(
+    "https://rancid-tomatillos.herokuapp.com/api/v2/movies"
+  );
   if (response.status >= 200 && response.status <= 299) {
     // No errors
     const jsonResponse = await response.json();
-    return jsonResponse.movies
+    return jsonResponse.movies;
   } else {
     // Handle 500 errors
     console.log(response);
     console.log(
       `Error! Code: ${response.status}
 There seems to be a problem with the server. Please refresh the page.
-      `)
-    return response.status
+      `
+    );
+    return response.status;
   }
-}
+};
 
 export const getMovieDetailsAPI = async id => {
-  const movieDetails = await fetch(
+  const response = await fetch(
     `https://rancid-tomatillos.herokuapp.com/api/v2/movies/${id}`
-  ).then(response => response.json());
-  console.log(movieDetails)
-  return movieDetails.movie;
+  );
+  if (response.status >= 200 && response.status <= 299) {
+    const jsonResponse = await response.json();
+    return jsonResponse.movie;
+  } else {
+    // Handle 500 errors
+    console.log(response);
+    console.log(
+      `Error! Code: ${response.status}
+There seems to be a problem with the server. Please refresh the page.
+    `
+    );
+    return response.status;
+  }
 };
