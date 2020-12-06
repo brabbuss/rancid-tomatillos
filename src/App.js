@@ -35,15 +35,17 @@ class App extends Component {
               <MovieDetails data={this.state.selectedMovie} {...props} />
             )}
           />
-          <div className="card-deck">
-            {movies.map((movie) => (
-              <MovieCard
-                key={movie.id}
-                data={movie}
-                getMovieDetails={this.getMovieDetails}
-              />
-            ))}
-          </div>
+          <React.Fragment>
+            <div className="card-deck">
+              {movies.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  data={movie}
+                  getMovieDetails={this.getMovieDetails}
+                />
+              ))}
+            </div>
+          </React.Fragment>
           {/* <Route
             path="/"
             render={(props) => (
