@@ -6,13 +6,14 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import {
   getMovieDataAPI,
   getMovieDetailsAPI,
+  getMovieVideoAPI
 } from "./components/utilities/apiCalls";
 import ErrorPage from "./components/errorPages/ErrorPage";
 
 class App extends Component {
   state = {
     selectedMovie: {},
-    selectedMovieVideo: "",
+    promoVideo: [],
     movies: [],
     statusError: false,
     statusErrorCode: "",
@@ -27,9 +28,10 @@ class App extends Component {
 
   getMovieDetails = async id => {
     const movieDetails = await getMovieDetailsAPI(id);
-    typeof movieDetails === "number"
+    const movieVideo = await getMovieVideoAPI(id)
+    typeof movieDetails === "number"  // if movieDetails is a number, then it is an error code returned from API call!
     ? this.handleError(movieDetails)
-    : this.setState({ statusError: false, selectedMovie: movieDetails });
+    : this.setState({ statusError: false, selectedMovie: movieDetails, promoVideo: movieVideo });
   };
 
   handleError = errorCode => {
@@ -37,7 +39,7 @@ class App extends Component {
   };
 
   render() {
-    const { statusError, statusErrorCode, selectedMovie, movies } = this.state;
+    const { statusError, statusErrorCode, selectedMovie, movies, promoVideo } = this.state;
 
     return (
       <main className="bg-dark">
@@ -48,7 +50,7 @@ class App extends Component {
               statusError ? (
                 <Redirect to="/error" />
               ) : (
-              <MovieDetails data={selectedMovie} {...props} />
+              <MovieDetails data={selectedMovie} promoVideo={promoVideo} {...props} />
             ))}
           />
           <Route
