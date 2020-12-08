@@ -1,14 +1,11 @@
 export const getMovieDataAPI = async () => {
-  // const response = await fetch("https://httpstat.us/500");   // test endpoint for 500 errors
   const response = await fetch(
-    "https://rancid-tomatillos.herokuapp.com/api/v2/movies"
+    "https://rancid-tomatillos.herokuapp.com/api/v2/movies"  // test endpoint for 500 errors @ ("https://httpstat.us/500");
   );
   if (response.status >= 200 && response.status <= 299) {
-    // No errors
     const jsonResponse = await response.json();
     return jsonResponse.movies;
   } else {
-    // Handle server errors
     console.log(
       `Error! Code: ${response.status}
 There seems to be a problem with the server. Please refresh the page.
@@ -19,8 +16,7 @@ There seems to be a problem with the server. Please refresh the page.
 };
 
 export const getMovieDetailsAPI = async id => {
-  // const response = await fetch("https://httpstat.us/500");   // test endpoint for 500 errors
-  const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${id}`);
+  const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${id}`); // test endpoint for 500 errors @ ("https://httpstat.us/500");
   if (response.status >= 200 && response.status <= 299) {
     const jsonResponse = await response.json();
     return jsonResponse.movie;
@@ -38,7 +34,6 @@ export const getMovieVideoAPI = async id => {
   const response = await fetch(`https://rancid-tomatillos.herokuapp.com/api/v2/movies/${id}/videos`);
   if (response.status >= 200 && response.status <= 299) {
     const jsonResponse = await response.json();
-    console.log(jsonResponse.videos)
     return jsonResponse.videos;
   } else {
     console.log(
