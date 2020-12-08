@@ -6,14 +6,14 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import {
   getMovieDataAPI,
   getMovieDetailsAPI,
-  getMovieVideoAPI
+  getMovieVideoAPI,
 } from "./components/utilities/apiCalls";
 import ErrorPage from "./components/errorPages/ErrorPage";
 
 class App extends Component {
   state = {
     selectedMovie: {},
-    promoVideo: [],
+    selectedMovieVideos: [],
     movies: [],
     statusError: false,
     statusErrorCode: "",
@@ -28,10 +28,14 @@ class App extends Component {
 
   getMovieDetails = async id => {
     const movieDetails = await getMovieDetailsAPI(id);
-    const movieVideo = await getMovieVideoAPI(id)
-    typeof movieDetails === "number"  // if movieDetails is a number, then it is an error code returned from API call!
-    ? this.handleError(movieDetails)
-    : this.setState({ statusError: false, selectedMovie: movieDetails, promoVideo: movieVideo });
+    const selectedMovieVideos = await getMovieVideoAPI(id);
+    typeof movieDetails === "number" // if movieDetails is a number, then it is an error code returned from API call!
+      ? this.handleError(movieDetails)
+      : this.setState({
+          statusError: false,
+          selectedMovie: movieDetails,
+          selectedMovieVideos: selectedMovieVideos,
+        });
   };
 
   handleError = errorCode => {
@@ -39,19 +43,44 @@ class App extends Component {
   };
 
   render() {
-    const { statusError, statusErrorCode, selectedMovie, movies, promoVideo } = this.state;
+    const {
+      movies,
+      statusError,
+      statusErrorCode,
+      selectedMovie,
+      selectedMovieVideos,
+    } = this.state;
 
     return (
       <main className="bg-dark">
         <Switch>
-          <Route
+          {/* <Route
             path="/movies/:movie_id"
-            render={props => (
+            render={props =>
               statusError ? (
                 <Redirect to="/error" />
               ) : (
-              <MovieDetails data={selectedMovie} promoVideo={promoVideo} {...props} />
-            ))}
+                <MovieDetails
+                  data={{...selectedMovie, selectedMovieVideos}}
+                  {...props}
+                />
+              )
+            }
+          /> */}
+          <Route
+            path="/movies/:movie_id"
+            render={props => {
+              const id = props.match.params.movie_id;
+              selectedMovie.id !== Number(id) && this.getMovieDetails(id)
+              return statusError ? (
+                <Redirect to="/error" />
+              ) : (
+                <MovieDetails
+                  data={{ ...selectedMovie, selectedMovieVideos }}
+                  {...props}
+                />
+              );
+            }}
           />
           <Route
             path="/error"
