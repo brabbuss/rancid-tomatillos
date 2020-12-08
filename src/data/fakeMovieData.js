@@ -1,4 +1,4 @@
-const fakeMovieData = {
+export const fakeMovieData = {
   "movies": [
     {
       "id": 694919,
@@ -322,5 +322,3 @@ const fakeMovieData = {
     }
   ]
 };
-
-export default fakeMovieData;

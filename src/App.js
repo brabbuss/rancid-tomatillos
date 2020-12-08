@@ -1,7 +1,5 @@
-import React, { Component } from "react";
 import "./App.css";
-import MovieDetails from "./components/MovieDetails";
-import MovieCard from "./components/MovieCard";
+import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import {
   getMovieDataAPI,
@@ -9,6 +7,9 @@ import {
   getMovieVideoAPI,
 } from "./components/utilities/apiCalls";
 import ErrorPage from "./components/errorPages/ErrorPage";
+import MovieDetails from "./components/MovieDetails";
+import NavBar from "./components/common/NavBar";
+import Movies from "./components/Movies";
 
 class App extends Component {
   state = {
@@ -52,26 +53,14 @@ class App extends Component {
     } = this.state;
 
     return (
-      <main className="bg-dark">
+      <React.Fragment>
+        <NavBar />
         <Switch>
-          {/* <Route
-            path="/movies/:movie_id"
-            render={props =>
-              statusError ? (
-                <Redirect to="/error" />
-              ) : (
-                <MovieDetails
-                  data={{...selectedMovie, selectedMovieVideos}}
-                  {...props}
-                />
-              )
-            }
-          /> */}
           <Route
             path="/movies/:movie_id"
             render={props => {
               const id = props.match.params.movie_id;
-              selectedMovie.id !== Number(id) && this.getMovieDetails(id)
+              selectedMovie.id !== Number(id) && this.getMovieDetails(id);
               return statusError ? (
                 <Redirect to="/error" />
               ) : (
@@ -98,21 +87,16 @@ class App extends Component {
               statusError ? (
                 <Redirect to="/error" />
               ) : (
-                <div className="card-deck">
-                  {movies.map(movie => (
-                    <MovieCard
-                      key={movie.id}
-                      data={movie}
-                      getMovieDetails={this.getMovieDetails}
-                      {...props}
-                    />
-                  ))}
-                </div>
+                <Movies
+                  movies={movies}
+                  getMovieDetails={this.getMovieDetails}
+                  {...props}
+                />
               )
             }
           />
         </Switch>
-      </main>
+      </React.Fragment>
     );
   }
 }
