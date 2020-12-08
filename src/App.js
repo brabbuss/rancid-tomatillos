@@ -1,18 +1,20 @@
-import React, { Component } from "react";
 import "./App.css";
-import MovieDetails from "./components/MovieDetails";
-import MovieCard from "./components/MovieCard";
+import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import {
   getMovieDataAPI,
   getMovieDetailsAPI,
+  getMovieVideoAPI,
 } from "./components/utilities/apiCalls";
 import ErrorPage from "./components/errorPages/ErrorPage";
+import MovieDetails from "./components/MovieDetails";
+import NavBar from "./components/common/NavBar";
+import Movies from "./components/Movies";
 
 class App extends Component {
   state = {
     selectedMovie: {},
-    selectedMovieVideo: "",
+    selectedMovieVideos: [],
     movies: [],
     statusError: false,
     statusErrorCode: "",
@@ -22,14 +24,19 @@ class App extends Component {
     const moviesData = await getMovieDataAPI();
     typeof moviesData === "number"
       ? this.handleError(moviesData)
-      : this.setState({ movies: moviesData });
+      : this.setState({ statusError: false, movies: moviesData });
   };
 
   getMovieDetails = async id => {
-    this.setState({
-      statusError: false,
-      selectedMovie: await getMovieDetailsAPI(id),
-    });
+    const movieDetails = await getMovieDetailsAPI(id);
+    const selectedMovieVideos = await getMovieVideoAPI(id);
+    typeof movieDetails === "number" // if movieDetails is a number, then it is an error code returned from API call!
+      ? this.handleError(movieDetails)
+      : this.setState({
+          statusError: false,
+          selectedMovie: movieDetails,
+          selectedMovieVideos: selectedMovieVideos,
+        });
   };
 
   handleError = errorCode => {
@@ -37,16 +44,32 @@ class App extends Component {
   };
 
   render() {
-    const { statusError, statusErrorCode, selectedMovie, movies } = this.state;
+    const {
+      movies,
+      statusError,
+      statusErrorCode,
+      selectedMovie,
+      selectedMovieVideos,
+    } = this.state;
 
     return (
-      <main className="bg-dark">
+      <React.Fragment>
+        <NavBar />
         <Switch>
           <Route
             path="/movies/:movie_id"
-            render={props => (
-              <MovieDetails data={selectedMovie} {...props} />
-            )}
+            render={props => {
+              const id = props.match.params.movie_id;
+              selectedMovie.id !== +(id) && this.getMovieDetails(id);
+              return statusError ? (
+                <Redirect to="/error" />
+              ) : (
+                <MovieDetails
+                  data={{ ...selectedMovie, selectedMovieVideos }}
+                  {...props}
+                />
+              );
+            }}
           />
           <Route
             path="/error"
@@ -64,20 +87,16 @@ class App extends Component {
               statusError ? (
                 <Redirect to="/error" />
               ) : (
-                <div className="card-deck">
-                  {movies.map(movie => (
-                    <MovieCard
-                      key={movie.id}
-                      data={movie}
-                      getMovieDetails={this.getMovieDetails}
-                    />
-                  ))}
-                </div>
+                <Movies
+                  movies={movies}
+                  getMovieDetails={this.getMovieDetails}
+                  {...props}
+                />
               )
             }
           />
         </Switch>
-      </main>
+      </React.Fragment>
     );
   }
 }
