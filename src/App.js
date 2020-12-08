@@ -9,7 +9,8 @@ import {
 import ErrorPage from "./components/errorPages/ErrorPage";
 import MovieCard from "./components/MovieCard";
 import MovieDetails from "./components/MovieDetails";
-import NavBar from "./components/NavBar";
+import NavBar from "./components/common/NavBar";
+import Banner from "./components/common/Banner";
 
 class App extends Component {
   state = {
@@ -55,7 +56,6 @@ class App extends Component {
     return (
       <React.Fragment>
         <NavBar />
-        {/* <main className="bg-dark"> */}
         <Switch>
           <Route
             path="/movies/:movie_id"
@@ -88,18 +88,21 @@ class App extends Component {
               statusError ? (
                 <Redirect to="/error" />
               ) : (
-                <main className="bg-dark">
-                  <div className="card-deck">
-                    {movies.map(movie => (
-                      <MovieCard
-                        key={movie.id}
-                        data={movie}
-                        getMovieDetails={this.getMovieDetails}
-                        {...props}
-                      />
-                    ))}
-                  </div>
-                </main>
+                <React.Fragment>
+                  <Banner />
+                  <main className="bg-dark">
+                    <div className="card-deck">
+                      {movies.map(movie => (
+                        <MovieCard
+                          key={movie.id}
+                          data={movie}
+                          getMovieDetails={this.getMovieDetails}
+                          {...props}
+                        />
+                      ))}
+                    </div>
+                  </main>
+                </React.Fragment>
               )
             }
           />
