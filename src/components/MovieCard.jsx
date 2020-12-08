@@ -12,22 +12,22 @@ const MovieCard = props => {
   } = props.data;
 
   return (
-    
-      <div
-        style={{ flex: "13rem", cursor: "pointer", border: "none" }}
-        className="card mt-3"
-        onClick={() => props.getMovieDetails(id)}>
-        <Link to={`/movies/${id}`}><img className="card-img-top" src={poster} alt={`${id} poster`} /></Link>
-        <div className="card-body">
-          <h5 className="card-title">
-            {title} {((rating / 10) * 100).toFixed() + "%"}
-          </h5>
-          <p className="card-text">
-            <small className="text-muted">Release Date {release_date}</small>
-          </p>
-        </div>
+    <div
+      style={{ flex: "13rem", cursor: "pointer", border: "none" }}
+      className="card mt-3"
+      onClick={() => props.getMovieDetails(id)}>
+      <Link to={`/movies/${id}`}>
+        <img className="card-img-top" src={poster} alt={`${id} poster`} />
+      </Link>
+      <div className="card-body">
+        <h5 className="card-title">
+          {title} {((rating / 10) * 100).toFixed() + "%"}
+        </h5>
+        <p className="card-text">
+          <small className="text-muted">Release Date {release_date}</small>
+        </p>
       </div>
-    
+    </div>
   );
 };
 
