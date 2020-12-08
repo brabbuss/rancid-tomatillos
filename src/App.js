@@ -7,10 +7,9 @@ import {
   getMovieVideoAPI,
 } from "./components/utilities/apiCalls";
 import ErrorPage from "./components/errorPages/ErrorPage";
-import MovieCard from "./components/MovieCard";
 import MovieDetails from "./components/MovieDetails";
 import NavBar from "./components/common/NavBar";
-import Banner from "./components/common/Banner";
+import Movies from "./components/Movies";
 
 class App extends Component {
   state = {
@@ -88,26 +87,15 @@ class App extends Component {
               statusError ? (
                 <Redirect to="/error" />
               ) : (
-                <React.Fragment>
-                  <Banner />
-                  <main className="bg-dark">
-                    <div className="card-deck">
-                      {movies.map(movie => (
-                        <MovieCard
-                          key={movie.id}
-                          data={movie}
-                          getMovieDetails={this.getMovieDetails}
-                          {...props}
-                        />
-                      ))}
-                    </div>
-                  </main>
-                </React.Fragment>
+                <Movies
+                  movies={movies}
+                  getMovieDetails={this.getMovieDetails}
+                  {...props}
+                />
               )
             }
           />
         </Switch>
-        {/* </main> */}
       </React.Fragment>
     );
   }
