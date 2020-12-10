@@ -19,7 +19,7 @@ const MovieCard = props => {
       <Link to={`/movies/${id}`}>
         <img className="card-img-top" src={poster} alt={`${id} poster`} />
       </Link>
-      <div className="card-body">
+      <div className="card-body" className="text-dark">
         <h5 className="card-title">
           {title} {((rating / 10) * 100).toFixed() + "%"}
         </h5>

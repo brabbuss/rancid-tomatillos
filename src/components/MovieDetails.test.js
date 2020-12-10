@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import MovieDetails from "./MovieDetails";
-
+import { MemoryRouter } from "react-router-dom";
 
 describe("MovieDetails", () => {
   it("should render correctly", () => {
@@ -21,12 +21,32 @@ describe("MovieDetails", () => {
       runtime: 115,
       tagline: "",
       average_rating: 4.909090909090909,
+      selectedMovieVideos: [
+        {
+          id: 243,
+          movie_id: 337401,
+          key: "KK8FHdFluOQ",
+          site: "YouTube",
+          type: "Trailer",
+        },
+        {
+          id: 246,
+          movie_id: 337401,
+          key: "1UXZEGYSwgg",
+          site: "YouTube",
+          type: "Featurette",
+        },
+      ],
     };
 
-    render(<MovieDetails data={movieData} />);
+    render(
+      <MemoryRouter>
+        <MovieDetails data={movieData} />
+      </MemoryRouter>
+    );
 
     expect(screen.getByText("Mulan 49%")).toBeInTheDocument();
     expect(screen.getByText("Release Date 2020-09-04")).toBeInTheDocument();
-    expect(screen.getByRole('img')).toBeInTheDocument();
+    expect(screen.getByRole("img")).toBeInTheDocument();
   });
 });
