@@ -241,14 +241,6 @@ export const fakeMovieData = {
       "release_date": "2020-04-16"
     },
     {
-      "id": 737173,
-      "poster_path": "https://image.tmdb.org/t/p/original//opZKcgocttEOAUzqluX3bUbbDew.jpg",
-      "backdrop_path": "https://www.esm.rochester.edu/uploads/NoPhotoAvailable.jpg",
-      "title": "Maratón After",
-      "average_rating": 4.333333333333333,
-      "release_date": "2020-09-03"
-    },
-    {
       "id": 737799,
       "poster_path": "https://image.tmdb.org/t/p/original//tEvGSlRO0dz1pINzjSEELdTHvwk.jpg",
       "backdrop_path": "https://image.tmdb.org/t/p/original//ysGikUSBjG3NRSyycHPf4rsIXQm.jpg",
