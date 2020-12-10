@@ -19,7 +19,7 @@ const MovieDetails = props => {
   } = props.data;
 
   function onLoad() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     const id = props.match.params.movie_id;
     if (+id !== movie_id) {
       props.syncMovieID(id);
@@ -45,11 +45,13 @@ const MovieDetails = props => {
         loading
       ) : (
         <div>
-          <img
-            className="img-fluid backdrop kenburns-bottom-left"
-            src={backdrop}
-            alt=""
-          />
+          <div className='wrapper'>
+            <img
+              className="img-fluid backdrop kenburns-bottom-left"
+              src={backdrop}
+              alt=""
+            />
+          </div>
           <div className="card-body">
             <h5 className="card-title text-primary">
               {title} {((rating / 10) * 100).toFixed() + "%"}
