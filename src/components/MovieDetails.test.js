@@ -1,10 +1,15 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import MovieDetails from "./MovieDetails";
-import { MemoryRouter } from "react-router-dom";
 
 describe("MovieDetails", () => {
   it("should render correctly", () => {
+    const props = {
+      match: {
+        params: { movie_id: "337401" },
+      },
+    };
+
     const movieData = {
       id: 337401,
       title: "Mulan",
@@ -40,9 +45,7 @@ describe("MovieDetails", () => {
     };
 
     render(
-      <MemoryRouter>
-        <MovieDetails data={movieData} />
-      </MemoryRouter>
+      <MovieDetails data={movieData} syncMovieID={jest.fn()} {...props} />
     );
 
     expect(screen.getByText("Mulan 49%")).toBeInTheDocument();

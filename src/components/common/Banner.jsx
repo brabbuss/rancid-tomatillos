@@ -1,8 +1,8 @@
 import React from "react";
+import "../../css/Banner.scss";
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
 import { fakeMovieData } from "../../data/fakeMovieData";
-import '../../css/Banner.scss'
 
 const { movies } = fakeMovieData;
 
@@ -29,11 +29,13 @@ const Banner = () => {
     <Carousel>
       <Carousel.Item>
         <Link to={`/movies/${randomMovie1.id}`}>
-          <img
-            className="d-block w-100"
-            src={randomMovie1.backdrop}
-            alt="First slide"
-          />
+          <div className="banner-wrapper">
+            <img
+              className="d-block w-100"
+              src={randomMovie1.backdrop}
+              alt="First slide"
+            />
+          </div>
         </Link>
         <Carousel.Caption>
           <h3>{randomMovie1.title}</h3>
@@ -45,11 +47,13 @@ const Banner = () => {
       </Carousel.Item>
       <Carousel.Item>
         <Link to={`/movies/${randomMovie1.id}`}>
-          <img
-            className="d-block w-100"
-            src={randomMovie2.backdrop}
-            alt="Third slide"
-          />
+          <div className="banner-wrapper">
+            <img
+              className="d-block w-100"
+              src={randomMovie2.backdrop}
+              alt="Third slide"
+            />
+          </div>
         </Link>
         <Carousel.Caption>
           <h3>{randomMovie2.title}</h3>
@@ -61,11 +65,13 @@ const Banner = () => {
       </Carousel.Item>
       <Carousel.Item>
         <Link to={`/movies/${randomMovie3.id}`}>
-          <img
-            className="d-block w-100"
-            src={randomMovie3.backdrop}
-            alt="Third slide"
-          />
+          <div className="banner-wrapper">
+            <img
+              className="d-block w-100"
+              src={randomMovie3.backdrop}
+              alt="Third slide"
+            />
+          </div>
         </Link>
         <Carousel.Caption>
           <h3>{randomMovie3.title}</h3>

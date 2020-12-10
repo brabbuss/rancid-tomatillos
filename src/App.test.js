@@ -1,11 +1,21 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import App from "./App";
-import { getMovieDataAPI, getMovieDetailsAPI } from "./components/utilities/apiCalls";
-import fakeMovieData from "./data/fakeMovieData";
-jest.mock("./components/utilities/apiCalls");
+import {
+  getMovieDataAPI,
+  getMovieDetailsAPI,
+  getMovieVideoAPI
+} from "./components/utilities/apiCalls";
 import { MemoryRouter } from "react-router-dom";
+import {fakeMovieData} from "./data/fakeMovieData";
 import userEvent from "@testing-library/user-event";
+jest.mock("./components/utilities/apiCalls");
+
 
 describe("App", () => {
   it("should render movie cards", async () => {
@@ -23,8 +33,17 @@ describe("App", () => {
   });
 
   it("should show movie details when a poster is clicked", async () => {
-    getMovieDataAPI.mockResolvedValueOnce(fakeMovieData.movies);
-    getMovieDetailsAPI.mockResolvedValueOnce({
+    getMovieDataAPI.mockResolvedValue(fakeMovieData.movies);
+    getMovieVideoAPI.mockResolvedValue([
+      {
+        id: 243,
+        movie_id: 337401,
+        key: "KK8FHdFluOQ",
+        site: "YouTube",
+        type: "Trailer",
+      },
+    ]);
+    getMovieDetailsAPI.mockResolvedValue({
       id: 337401,
       title: "Mulan",
       poster_path:
@@ -51,8 +70,11 @@ describe("App", () => {
     userEvent.click(
       await waitFor(() => screen.getByRole("link", { name: /337401 poster/i }))
     );
-    expect(
-      await waitFor(() => screen.getByText("Budget: $200,000,000"))).toBeInTheDocument();
+    await waitForElementToBeRemoved(() => screen.getByText("LOADING"));
+
+
+    await waitFor(() =>
+      expect(screen.queryByText("Budget: $200,000,000")).toBeInTheDocument()
+    );
   });
-  
 });
