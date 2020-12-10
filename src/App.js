@@ -28,15 +28,15 @@ class App extends Component {
   };
 
   getMovieDetails = async id => {
-    const movieDetails = await getMovieDetailsAPI(id);
-    const selectedMovieVideos = await getMovieVideoAPI(id);
-    typeof movieDetails === "number" // if movieDetails is a number, then it is an error code returned from API call!
-      ? this.handleError(movieDetails)
-      : this.setState({
-          statusError: false,
-          selectedMovie: movieDetails,
-          selectedMovieVideos: selectedMovieVideos,
-        });
+    await getMovieDetailsAPI(id).then(movie =>
+      this.setState({ selectedMovie: movie })
+    );
+    await getMovieVideoAPI(id).then(videos =>
+      this.setState({ selectedMovieVideos: videos })
+    );
+    typeof this.state.selectedMovie === "number" // if movieDetails is a number, then it is an error code returned from API call!
+      ? this.handleError(this.state.selectedMovie)
+      : this.setState({ statusError: false });
   };
 
   handleError = errorCode => {
@@ -59,13 +59,12 @@ class App extends Component {
           <Route
             path="/movies/:movie_id"
             render={props => {
-              const id = props.match.params.movie_id;
-              selectedMovie.id !== +(id) && this.getMovieDetails(id);
               return statusError ? (
                 <Redirect to="/error" />
               ) : (
                 <MovieDetails
                   data={{ ...selectedMovie, selectedMovieVideos }}
+                  syncMovieID={this.getMovieDetails}
                   {...props}
                 />
               );
