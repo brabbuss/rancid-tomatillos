@@ -2,7 +2,6 @@ import React from "react";
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
 import { fakeMovieData } from "../../data/fakeMovieData";
-import '../../css/Banner.scss'
 
 const { movies } = fakeMovieData;
 
