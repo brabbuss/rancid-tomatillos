@@ -26,7 +26,7 @@ const MovieDetails = props => {
     return `https://www.youtube.com/watch?v=${matchedVideo.key}`;
   }
 
-  // console.log(props)
+  console.log(genres)
 
   return (
     <React.Fragment>
@@ -44,10 +44,9 @@ const MovieDetails = props => {
         </p>
         {tagline && <p>{tagline}</p>}
         <p>{overview}</p>
-        {/* {genres != undefined && genres.map(genre => <p>{genre}</p>)} */}
-        <p>{genres.toString( )}</p>
-        {budget > 0 && <p> Budget: ${budget.toLocaleString()}</p>}
-        {revenue > 0 && <p> Revenue: ${revenue.toLocaleString()}</p>}
+        {genres != undefined && genres.map(genre => <p>{genre}</p>)}
+        {budget > 0 && <p>Budget: ${budget.toLocaleString()}</p>}
+        {revenue > 0 && <p>Revenue: ${revenue.toLocaleString()}</p>}
         {runtime > 0 && <p>Runtime: {runtime} minutes</p>}
         {videos.length && (
           <ReactPlayer url={getVideo("Trailer")} width="100%" />
