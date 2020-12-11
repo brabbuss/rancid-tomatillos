@@ -7,6 +7,7 @@ jest.mock("./utilities/apiCalls.js");
 import { fakeMovieData } from "../data/fakeMovieData";
 
 describe("MovieCard", () => {
+
   it("should render correctly", () => {
     const fakeMovie = fakeMovieData.movies[0];
     const mockGetMovieDetails = jest.fn();
@@ -29,6 +30,7 @@ describe("MovieCard", () => {
       screen.getByRole("link", { name: /694919 poster/i })
     ).toBeInTheDocument();
   }),
+  
     it("should call get movie details with the correct params", () => {
       const mockGetMovieDetails = jest.fn();
       const fakeMovie = fakeMovieData.movies[0];
