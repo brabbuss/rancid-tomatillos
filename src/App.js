@@ -53,7 +53,7 @@ class App extends Component {
     } = this.state;
 
     return (
-      <React.Fragment>
+      <main>
         <NavBar />
         <Switch>
           <Route
@@ -95,7 +95,7 @@ class App extends Component {
             }
           />
         </Switch>
-      </React.Fragment>
+      </main>
     );
   }
 }
