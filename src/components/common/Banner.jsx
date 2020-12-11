@@ -24,7 +24,7 @@ const randomMovie1 = clone();
 const randomMovie2 = clone();
 const randomMovie3 = clone();
 
-const Banner = () => {
+const Banner = (props) => {
   return (
     <Carousel>
       <Carousel.Item>
@@ -51,7 +51,7 @@ const Banner = () => {
             <img
               className="d-block w-100"
               src={randomMovie2.backdrop}
-              alt="Third slide"
+              alt="Second slide"
             />
           </div>
         </Link>
