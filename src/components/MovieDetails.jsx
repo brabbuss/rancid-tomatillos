@@ -40,7 +40,7 @@ const MovieDetails = props => {
   onLoad();
 
   return (
-    <React.Fragment>
+    <section>
       {!title ? (
         loading
       ) : (
@@ -71,7 +71,7 @@ const MovieDetails = props => {
           </div>
         </div>
       )}
-    </React.Fragment>
+    </section>
   );
 };
 

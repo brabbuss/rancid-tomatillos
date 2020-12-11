@@ -9,31 +9,18 @@ import App from "./App";
 import {
   getMovieDataAPI,
   getMovieDetailsAPI,
-  getMovieVideoAPI
+  getMovieVideoAPI,
 } from "./components/utilities/apiCalls";
-import { MemoryRouter } from "react-router-dom";
-import {fakeMovieData} from "./data/fakeMovieData";
+import { MemoryRouter, BrowserRouter } from "react-router-dom";
+import { fakeMovieData } from "./data/fakeMovieData";
 import userEvent from "@testing-library/user-event";
 jest.mock("./components/utilities/apiCalls");
 
-
 describe("App", () => {
-  it("should render movie cards", async () => {
-    getMovieDataAPI.mockResolvedValueOnce(fakeMovieData.movies);
-    render(
-      <MemoryRouter>
-        <App />
-      </MemoryRouter>
-    );
+  beforeEach(() => {
 
-    const movieCard = await waitFor(() =>
-      screen.getByRole("heading", { name: /mulan 49%/i })
-    );
-    expect(movieCard).toBeInTheDocument();
-  });
-
-  it("should show movie details when a poster is clicked", async () => {
     getMovieDataAPI.mockResolvedValue(fakeMovieData.movies);
+
     getMovieVideoAPI.mockResolvedValue([
       {
         id: 243,
@@ -43,6 +30,7 @@ describe("App", () => {
         type: "Trailer",
       },
     ]);
+
     getMovieDetailsAPI.mockResolvedValue({
       id: 337401,
       title: "Mulan",
@@ -60,7 +48,22 @@ describe("App", () => {
       tagline: "",
       average_rating: 4.909090909090909,
     });
+  });
 
+  it("should render movie cards", async () => {
+    render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
+
+    const movieCard = await waitFor(() =>
+      screen.getByRole("heading", { name: /mulan 49%/i })
+    );
+    expect(movieCard).toBeInTheDocument();
+  });
+
+  it("should show movie details when a poster is clicked", async () => {
     render(
       <MemoryRouter>
         <App />
@@ -72,9 +75,33 @@ describe("App", () => {
     );
     await waitForElementToBeRemoved(() => screen.getByText("LOADING"));
 
-
     await waitFor(() =>
       expect(screen.queryByText("Budget: $200,000,000")).toBeInTheDocument()
     );
-  });
+  }),
+
+    it("should navigate back home from movie details", async () => {
+
+      render(
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      );
+
+      userEvent.click(
+        await waitFor(() =>
+          screen.getByRole("link", { name: /337401 poster/i })
+        )
+      );
+      await waitForElementToBeRemoved(() => screen.getByText("LOADING"));
+      await waitFor(() => screen.queryByText("Budget: $200,000,000"));
+      userEvent.click(
+        await waitFor(() =>
+          screen.getByRole("link", { name: /rancid tomatillos/i })
+        )
+      );
+      await waitFor(() =>
+        expect(screen.queryByText("Ava 51%")).toBeInTheDocument()
+      );
+    });
 });
