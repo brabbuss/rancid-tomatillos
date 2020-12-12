@@ -1,5 +1,5 @@
 import React from "react";
-import "../../css/Banner.scss";
+import "./Banner.scss";
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
 import { fakeMovieData } from "../../data/fakeMovieData";
