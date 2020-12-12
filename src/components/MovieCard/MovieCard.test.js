@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import MovieCard from "./MovieCard";
 import { BrowserRouter } from "react-router-dom";
-jest.mock("./utilities/apiCalls.js");
+jest.mock("../utilities/apiCalls");
 import { fakeMovieData } from "../../data/fakeMovieData";
 
 describe("MovieCard", () => {
