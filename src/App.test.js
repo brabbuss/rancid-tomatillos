@@ -4,7 +4,7 @@ import {
   waitFor,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import "./components/NavBar/node_modules/@testing-library/jest-dom";
 import App from "./App";
 import {
   getMovieDataAPI,
