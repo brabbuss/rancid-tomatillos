@@ -7,9 +7,10 @@ import {
   getMovieVideoAPI,
 } from "./components/utilities/apiCalls";
 import ErrorPage from "./components/errorPages/ErrorPage";
-import MovieDetails from "./components/MovieDetails";
-import NavBar from "./components/common/NavBar";
-import Movies from "./components/Movies";
+import MovieDetails from "./components/MovieDetails/MovieDetails";
+import NavBar from "./components/NavBar/NavBar";
+import Movies from "./components/Movies/Movies";
+import SearchResults from "./components/SearchResults"
 
 class App extends Component {
   state = {
@@ -18,6 +19,7 @@ class App extends Component {
     movies: [],
     statusError: false,
     statusErrorCode: "",
+    searchResults: []
   };
 
   componentDidMount = async () => {
@@ -43,6 +45,13 @@ class App extends Component {
     this.setState({ statusError: true, statusErrorCode: errorCode });
   };
 
+  searchMovies = (title) => {
+    const movieMatches = this.state.movies.filter( movie => {
+      return (movie.title).toLowerCase().includes(title.toLowerCase())
+    })
+    this.setState({searchResults: movieMatches})
+  }  
+
   render() {
     const {
       movies,
@@ -50,11 +59,12 @@ class App extends Component {
       statusErrorCode,
       selectedMovie,
       selectedMovieVideos,
+      searchResults
     } = this.state;
 
     return (
       <main>
-        <NavBar />
+        <NavBar searchMovies={this.searchMovies}/>
         <Switch>
           <Route
             path="/movies/:movie_id"
@@ -79,6 +89,11 @@ class App extends Component {
                 <ErrorPage errorCode={statusErrorCode} {...props} />
               )
             }
+          />
+          <Route 
+          path="/results"
+          render={props => 
+          <SearchResults searchResults={searchResults} getMovieDetails={this.getMovieDetails}{...props}/>}
           />
           <Route
             path="/"

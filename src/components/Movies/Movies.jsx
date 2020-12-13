@@ -1,6 +1,6 @@
 import React from "react";
-import MovieCard from "./MovieCard";
-import Banner from './common/Banner'
+import MovieCard from "../MovieCard/MovieCard";
+import Banner from '../Banner/Banner'
 
 const Movies = (props) => {
   const { movies } = props;

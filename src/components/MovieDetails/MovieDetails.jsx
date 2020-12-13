@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/MovieDetails.scss";
+import "./MovieDetails.scss";
 import ReactPlayer from "react-player/youtube";
 
 const MovieDetails = props => {
