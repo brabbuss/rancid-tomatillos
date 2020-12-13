@@ -16,6 +16,7 @@
   position: absolute;
   display: flex;
   height: 100%;
+  width: -webkit-fill-available;
   background-image: linear-gradient(
     to left,
     rgba(255, 111, 0, 0.521),
