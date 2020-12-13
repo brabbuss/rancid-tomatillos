@@ -40,6 +40,7 @@
     font-size: 1.4em;
     font-weight: 200;
     font-style: italic;
+    margin: 1.2em 0;
   }
   p {
     font-size: 1.2em;
@@ -53,6 +54,7 @@
   flex-direction: row;
   margin: 0.5em 0;
   margin-bottom: 1em;
+  align-items: center;
   h2 {
     margin: auto 0;
   }
@@ -71,6 +73,21 @@
 .video-wrapper {
   align-self: center;
   flex: 1;
+}
+
+
+.genres-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.genre {
+  margin: 1em 1.1em;
+  margin-left: 0;
+  width: fit-content;
+  padding: .7em !important;
+  background-color: #6c757d00 !important;
+  border: solid;
 }
 
 .kenburns-bottom-left {
