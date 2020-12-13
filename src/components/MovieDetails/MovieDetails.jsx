@@ -88,7 +88,7 @@ const MovieDetails = props => {
         <div className="page-wrapper">
           <div className="wrapper">
             <img
-              className="img-fluid backdrop kenburns-bottom-left"
+              className="img-fluid kenburns-bottom-left"
               src={backdrop}
               alt=""
             />
