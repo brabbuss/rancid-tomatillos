@@ -1,6 +1,7 @@
 import React from "react";
 import MovieCard from "../MovieCard/MovieCard";
 import Banner from '../Banner/Banner'
+import './Movies.scss'
 
 const Movies = (props) => {
   const { movies } = props;
