@@ -28,7 +28,9 @@ const MovieDetails = props => {
 
   function getVideo(type) {
     const matchedVideo = videos.find(v => v.type === type);
-    return `https://www.${matchedVideo.site.toLowerCase()}.com/watch?v=${matchedVideo.key}`;
+    return `https://www.${matchedVideo.site.toLowerCase()}.com/watch?v=${
+      matchedVideo.key
+    }`;
   }
 
   const getReleaseYear = date => {
@@ -75,13 +77,20 @@ const MovieDetails = props => {
                 <h2 style={getRatingColor()}>{ratingPercent}</h2>
                 <div className="sub-header-release-runtime">
                   <small>{getReleaseYear(release_date)}</small>
-                  <small style={{fontWeight: 600}}>|</small>
+                  <small style={{ fontWeight: 600 }}>|</small>
                   <small>{runtime} min</small>
                 </div>
               </div>
               <h3>{tagline}</h3>
               {overview && <p>{overview}</p>}
-              {genres && genres.map(genre => <p key={genre}>{genre}</p>)}
+              <div className="genres-container">
+                {genres &&
+                  genres.map(genre => (
+                    <h5 key={genre}>
+                      <span className="genre badge badge-secondary">{genre}</span>
+                    </h5>
+                  ))}
+              </div>
               {budget > 0 && <p>Budget: ${budget.toLocaleString()}</p>}
               {revenue > 0 && <p>Revenue: ${revenue.toLocaleString()}</p>}
             </div>
