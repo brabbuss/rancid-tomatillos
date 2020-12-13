@@ -19,7 +19,7 @@ const MovieDetails = props => {
   } = props.data;
 
   function onLoad() {
-    window.scrollTo(0, 100);
+    window.scrollTo(0, 0);
     const id = props.match.params.movie_id;
     if (+id !== movie_id) {
       props.syncMovieID(id);
