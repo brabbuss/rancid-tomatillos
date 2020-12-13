@@ -31,7 +31,7 @@ const Banner = (props) => {
         <Link to={`/movies/${randomMovie1.id}`}>
           <div className="banner-wrapper">
             <img
-              className="d-block w-100"
+              className="d-block w-100 img-fluid kenburns-bottom-left"
               src={randomMovie1.backdrop}
               alt="First slide"
             />
@@ -49,7 +49,7 @@ const Banner = (props) => {
         <Link to={`/movies/${randomMovie1.id}`}>
           <div className="banner-wrapper">
             <img
-              className="d-block w-100"
+              className="d-block w-100 img-fluid kenburns-bottom-left"
               src={randomMovie2.backdrop}
               alt="Second slide"
             />
@@ -67,7 +67,7 @@ const Banner = (props) => {
         <Link to={`/movies/${randomMovie3.id}`}>
           <div className="banner-wrapper">
             <img
-              className="d-block w-100"
+              className="d-block w-100 img-fluid kenburns-bottom-left"
               src={randomMovie3.backdrop}
               alt="Third slide"
             />
