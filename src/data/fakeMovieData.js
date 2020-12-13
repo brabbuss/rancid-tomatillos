@@ -153,14 +153,6 @@ export const fakeMovieData = {
       "release_date": "2020-08-26"
     },
     {
-      "id": 605499,
-      "poster_path": "https://image.tmdb.org/t/p/original//xIKVeH1iAKJOYYh9lvObD3hYIaf.jpg",
-      "backdrop_path": "https://image.tmdb.org/t/p/original//48OhmVjmjqhB1TrevTMKwKUDetU.jpg",
-      "title": "Monsoon",
-      "average_rating": 5.25,
-      "release_date": "2020-09-25"
-    },
-    {
       "id": 737568,
       "poster_path": "https://image.tmdb.org/t/p/original//pklyUbh4k1DbHdnsOMASyw7C6NH.jpg",
       "backdrop_path": "https://image.tmdb.org/t/p/original//9pHxv7TX0jOKNgnGMDP6RJ2m1GL.jpg",
