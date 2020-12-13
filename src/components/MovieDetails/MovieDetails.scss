@@ -1,17 +1,9 @@
-main {
-  background-image: linear-gradient(
-    to top,
-    rgba(255, 111, 0, 0.521),
-    rgba(0, 0, 0, 0.789)
-  );
-  box-shadow: 0px -10px 20px 5px black;
-  position: absolute;
-}
-
 .wrapper {
   overflow: hidden;
-  height: 100vh;
   width: -webkit-fill-available;
+  img {
+    width: 100vw;
+  }
 }
 
 .backdrop {
@@ -25,7 +17,7 @@ main {
 .details-wrapper {
   position: absolute;
   display: flex;
-  height: 100vh;
+  height: 93%;
   width: -webkit-fill-available;
   background-image: linear-gradient(
     to left,
