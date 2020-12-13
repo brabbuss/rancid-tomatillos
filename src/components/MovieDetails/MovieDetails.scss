@@ -90,6 +90,36 @@
   border: solid;
 }
 
+.progress-bg {
+  background-color: #6c757d00 !important;
+  border: solid white;
+  height: 3rem !important;
+}
+
+.budget-revenue-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.budget-revenue {
+  // background-color: black !important;
+  // width: 100%;
+  flex: 1;
+  display:flex !important;
+  // flex-direction: row !important÷;
+  justify-content: center !important;
+  align-content: center !important;
+  margin: 1em .3em;
+  padding: .5em 1em;
+  text-align: center;
+  line-height: 1em;
+  // background-color: aqua !important;
+  p {
+    margin: auto;
+    font-weight: 400;
+  }
+}
+
 .kenburns-bottom-left {
   -webkit-animation: kenburns-bottom-left 12s ease-out both;
   animation: kenburns-bottom-left 12s ease-out both;

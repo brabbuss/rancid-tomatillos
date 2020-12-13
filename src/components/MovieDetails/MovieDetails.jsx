@@ -47,6 +47,12 @@ const MovieDetails = props => {
     }
   };
 
+  const calculateRevenue = () => {
+    const gain = revenue / budget;
+    const gainPercent = (gain * 100).toFixed();
+    return gain > 0.99 ? ["100", gainPercent] : [gainPercent, gainPercent];
+  };
+
   const ratingPercent = ((rating / 10) * 100).toFixed() + "%";
 
   const loading = (
@@ -56,6 +62,8 @@ const MovieDetails = props => {
   );
 
   onLoad();
+
+  console.log(calculateRevenue());
 
   return (
     <React.Fragment>
@@ -81,18 +89,48 @@ const MovieDetails = props => {
                   <small>{runtime} min</small>
                 </div>
               </div>
-              <h3>{tagline}</h3>
+              {tagline && <h3>{tagline}</h3>}
               {overview && <p>{overview}</p>}
               <div className="genres-container">
                 {genres &&
                   genres.map(genre => (
                     <h5 key={genre}>
-                      <span className="genre badge badge-secondary">{genre}</span>
+                      <span className="genre badge badge-secondary">
+                        {genre}
+                      </span>
                     </h5>
                   ))}
               </div>
-              {budget > 0 && <p>Budget: ${budget.toLocaleString()}</p>}
-              {revenue > 0 && <p>Revenue: ${revenue.toLocaleString()}</p>}
+              <div className="budget-revenue-container">
+                {budget > 0 && (
+                  <div className="budget-revenue genre badge badge-secondary">
+                    <p>Budget</p>
+                    <p>${budget.toLocaleString()}</p>
+                  </div>
+                )}
+                {revenue > 0 && (
+                  <div className="budget-revenue genre badge badge-secondary">
+                    <p>Revenue</p>
+                    <p>${revenue.toLocaleString()}</p>
+                  </div>
+                )}
+              </div>
+              {budget && revenue && (
+                <div>
+                  <p>Return</p>
+                  <div className="progress-bg badge badge-secondary progress">
+                    <div
+                      className="progress-bar bg-danger"
+                      role="progressbar"
+                      style={{ width: `${calculateRevenue()[1]}%` }}
+                      aria-valuenow={calculateRevenue()[1]}
+                      aria-valuemin="0"
+                      aria-valuemax="100">
+                      {calculateRevenue()[0]}%
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
             {videos.length && (
               <div className="video-wrapper">
