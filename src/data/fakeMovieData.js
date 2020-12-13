@@ -1,14 +1,6 @@
 export const fakeMovieData = {
   "movies": [
     {
-      "id": 694919,
-      "poster_path": "https://image.tmdb.org/t/p/original//6CoRTJTmijhBLJTUNoVSUNxZMEI.jpg",
-      "backdrop_path": "https://image.tmdb.org/t/p/original//pq0JSpwyT2URytdFG0euztQPAyR.jpg",
-      "title": "Money Plane",
-      "average_rating": 6.666666666666667,
-      "release_date": "2020-09-29"
-    },
-    {
       "id": 337401,
       "poster_path": "https://image.tmdb.org/t/p/original//aKx1ARwG55zZ0GpRvU2WrGrCG9o.jpg",
       "backdrop_path": "https://image.tmdb.org/t/p/original//zzWGRw277MNoCs3zhyG3YmYQsXv.jpg",
@@ -145,14 +137,6 @@ export const fakeMovieData = {
       "release_date": "2020-08-22"
     },
     {
-      "id": 619592,
-      "poster_path": "https://image.tmdb.org/t/p/original//ucktgbaMSaETUDLUBp1ubGD6aNj.jpg",
-      "backdrop_path": "https://image.tmdb.org/t/p/original//eIqyISB5j99OSRZUuvdN9g2bBsS.jpg",
-      "title": "Force of Nature",
-      "average_rating": 4.4,
-      "release_date": "2020-07-02"
-    },
-    {
       "id": 501979,
       "poster_path": "https://image.tmdb.org/t/p/original//4V2nTPfeB59TcqJcUfQ9ziTi7VN.jpg",
       "backdrop_path": "https://image.tmdb.org/t/p/original//oazPqs1z78LcIOFslbKtJLGlueo.jpg",
@@ -167,14 +151,6 @@ export const fakeMovieData = {
       "title": "The New Mutants",
       "average_rating": 4.2,
       "release_date": "2020-08-26"
-    },
-    {
-      "id": 605499,
-      "poster_path": "https://image.tmdb.org/t/p/original//xIKVeH1iAKJOYYh9lvObD3hYIaf.jpg",
-      "backdrop_path": "https://image.tmdb.org/t/p/original//48OhmVjmjqhB1TrevTMKwKUDetU.jpg",
-      "title": "Monsoon",
-      "average_rating": 5.25,
-      "release_date": "2020-09-25"
     },
     {
       "id": 737568,
@@ -209,14 +185,6 @@ export const fakeMovieData = {
       "release_date": "2019-11-15"
     },
     {
-      "id": 617708,
-      "poster_path": "https://image.tmdb.org/t/p/original//yVsINl4Aa9vvQ9lE2LF77qNj7AP.jpg",
-      "backdrop_path": "https://image.tmdb.org/t/p/original//oj9pEWQq5higRzKWiE8f0d5hBSb.jpg",
-      "title": "La llorona",
-      "average_rating": 4.5,
-      "release_date": "2020-01-22"
-    },
-    {
       "id": 528085,
       "poster_path": "https://image.tmdb.org/t/p/original//7D430eqZj8y3oVkLFfsWXGRcpEG.jpg",
       "backdrop_path": "https://image.tmdb.org/t/p/original//5UkzNSOK561c2QRy2Zr4AkADzLT.jpg",
@@ -239,14 +207,6 @@ export const fakeMovieData = {
       "title": "The Secret: Dare to Dream",
       "average_rating": 5.6,
       "release_date": "2020-04-16"
-    },
-    {
-      "id": 737799,
-      "poster_path": "https://image.tmdb.org/t/p/original//tEvGSlRO0dz1pINzjSEELdTHvwk.jpg",
-      "backdrop_path": "https://image.tmdb.org/t/p/original//ysGikUSBjG3NRSyycHPf4rsIXQm.jpg",
-      "title": "Maquis",
-      "average_rating": 4.8,
-      "release_date": "2020-08-28"
     },
     {
       "id": 500840,
@@ -289,14 +249,6 @@ export const fakeMovieData = {
       "release_date": "2020-08-19"
     },
     {
-      "id": 659991,
-      "poster_path": "https://image.tmdb.org/t/p/original//erl30EcM8b8S84mvw8QXhNIeSfi.jpg",
-      "backdrop_path": "https://image.tmdb.org/t/p/original//5nRyaVklxyA9OkxqZaPv1KBRqpd.jpg",
-      "title": "Made in Italy",
-      "average_rating": 5,
-      "release_date": "2020-08-06"
-    },
-    {
       "id": 501953,
       "poster_path": "https://image.tmdb.org/t/p/original//2wXrBtfrvwMWE1i3iHjKjoRZjYk.jpg",
       "backdrop_path": "https://image.tmdb.org/t/p/original//oeaLQKoPFQxvhEz3yyR1QuestXG.jpg",
@@ -314,3 +266,13 @@ export const fakeMovieData = {
     }
   ]
 };
+
+export const filterGoodData = () => {
+  const data = fakeMovieData.movies.filter(m => {
+    console.log(m.budget)
+    if (m.budget > 0 && m.revenue > 0) {
+      return m
+    }
+  })
+  console.log(fakeMovieData.movies[0].budget)
+}

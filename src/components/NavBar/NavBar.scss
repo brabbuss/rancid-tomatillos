@@ -1,0 +1,27 @@
+.navbar {
+  background-color: black !important;
+  height: 5.1em !important;
+}
+
+.navbar-brand {
+  font-size: 3em !important;
+}
+
+.brand-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+  a {
+    line-height: 0.9em;
+    margin: 0;
+  }
+}
+
+.search-block {
+  justify-content: flex-end;
+}
+
+ul {
+  margin-right: 3em;
+  font-size: 1.6em;
+}

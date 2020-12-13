@@ -19,7 +19,7 @@ const MovieDetails = props => {
   } = props.data;
 
   function onLoad() {
-    window.scrollTo(0, 100);
+    window.scrollTo(0, 0);
     const id = props.match.params.movie_id;
     if (+id !== movie_id) {
       props.syncMovieID(id);
@@ -47,6 +47,19 @@ const MovieDetails = props => {
     }
   };
 
+  const getProgressBarBadge = () => {
+    const gain = calculateRevenue()[1];
+    let color = '';
+    if (gain > 70) {
+      color = 'bg-success'
+    } else if (gain < 30) {
+      color = 'bg-danger'
+    } else {
+      color = 'bg-warning'
+    }
+    return `progress-bar ${color}`
+  }
+
   const calculateRevenue = () => {
     const gain = revenue / budget;
     const gainPercent = (gain * 100).toFixed();
@@ -55,7 +68,7 @@ const MovieDetails = props => {
 
   const ratingPercent = ((rating / 10) * 100).toFixed() + "%";
 
-  const loading = (
+  const loadingScreen = (
     <div style={{ width: "100vh", height: "100vw", display: "flex" }}>
       <h1 style={{ fontSize: "20em", color: "white" }}>LOADING</h1>
     </div>
@@ -63,12 +76,10 @@ const MovieDetails = props => {
 
   onLoad();
 
-  console.log(calculateRevenue());
-
   return (
     <React.Fragment>
       {!title ? (
-        loading
+        loadingScreen
       ) : (
         <div className="page-wrapper">
           <div className="wrapper">
@@ -120,7 +131,7 @@ const MovieDetails = props => {
                   <p>Return</p>
                   <div className="progress-bg badge badge-secondary progress">
                     <div
-                      className="progress-bar bg-danger"
+                      className={getProgressBarBadge()}
                       role="progressbar"
                       style={{ width: `${calculateRevenue()[1]}%` }}
                       aria-valuenow={calculateRevenue()[1]}
