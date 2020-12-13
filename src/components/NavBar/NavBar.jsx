@@ -20,9 +20,9 @@ class NavBar extends Component {
 
   render() {
   return ( 
-    <nav className="navbar sticky-top navbar-expand-sm navbar-light bg-light">
+    <nav className="navbar sticky-top navbar-expand-sm navbar-light bg-dark">
       <div className="container-fluid">
-        <NavLink to='/' className="navbar-brand">Rancid Tomatillos</NavLink>
+        <NavLink to='/' className="navbar-brand text-white">Rancid Tomatillos</NavLink>
         
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -30,7 +30,7 @@ class NavBar extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/">Home</a>
+              <a className="nav-link text-white active" aria-current="page" href="/">Home</a>
             </li>
           </ul>
           
