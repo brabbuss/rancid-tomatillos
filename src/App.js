@@ -24,9 +24,10 @@ class App extends Component {
 
   componentDidMount = async () => {
     const moviesData = await getMovieDataAPI();
+    const cleanedData = moviesData.filter(m => m.id !== 737173)
     typeof moviesData === "number"
       ? this.handleError(moviesData)
-      : this.setState({ statusError: false, movies: moviesData });
+      : this.setState({ statusError: false, movies: cleanedData });
   };
 
   getMovieDetails = async id => {
