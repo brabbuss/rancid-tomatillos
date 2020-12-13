@@ -10,7 +10,7 @@ import ErrorPage from "./components/errorPages/ErrorPage";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
 import NavBar from "./components/NavBar/NavBar";
 import Movies from "./components/Movies/Movies";
-import SearchResults from "./components/SearchResults"
+import SearchResults from "./components/SearchResults";
 
 class App extends Component {
   state = {
@@ -19,12 +19,12 @@ class App extends Component {
     movies: [],
     statusError: false,
     statusErrorCode: "",
-    searchResults: []
+    searchResults: [],
   };
 
   componentDidMount = async () => {
     const moviesData = await getMovieDataAPI();
-    const cleanedData = moviesData.filter(m => m.id !== 737173)
+    const cleanedData = this.filterMovieData(moviesData)
     typeof moviesData === "number"
       ? this.handleError(moviesData)
       : this.setState({ statusError: false, movies: cleanedData });
@@ -46,12 +46,23 @@ class App extends Component {
     this.setState({ statusError: true, statusErrorCode: errorCode });
   };
 
-  searchMovies = (title) => {
-    const movieMatches = this.state.movies.filter( movie => {
-      return (movie.title).toLowerCase().includes(title.toLowerCase())
-    })
-    this.setState({searchResults: movieMatches})
-  }  
+  filterMovieData = (moviesData) => {
+    return moviesData.filter((movie) => {
+      if (movie.id !== 737173 
+        && movie.id !== 737799
+        || !movie.title
+        || !movie.average_rating) {
+        return movie
+      }
+    });
+  }
+
+  searchMovies = title => {
+    const movieMatches = this.state.movies.filter(movie => {
+      return movie.title.toLowerCase().includes(title.toLowerCase());
+    });
+    this.setState({ searchResults: movieMatches });
+  };
 
   render() {
     const {
@@ -60,12 +71,12 @@ class App extends Component {
       statusErrorCode,
       selectedMovie,
       selectedMovieVideos,
-      searchResults
+      searchResults,
     } = this.state;
 
     return (
       <main>
-        <NavBar searchMovies={this.searchMovies}/>
+        <NavBar searchMovies={this.searchMovies} />
         <Switch>
           <Route
             path="/movies/:movie_id"
@@ -91,10 +102,15 @@ class App extends Component {
               )
             }
           />
-          <Route 
-          path="/results"
-          render={props => 
-          <SearchResults searchResults={searchResults} getMovieDetails={this.getMovieDetails}{...props}/>}
+          <Route
+            path="/results"
+            render={props => (
+              <SearchResults
+                searchResults={searchResults}
+                getMovieDetails={this.getMovieDetails}
+                {...props}
+              />
+            )}
           />
           <Route
             path="/"
