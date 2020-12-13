@@ -25,7 +25,7 @@ main {
 .details-wrapper {
   position: absolute;
   display: flex;
-  height: 94%;
+  height: 100vh;
   width: -webkit-fill-available;
   background-image: linear-gradient(
     to left,
@@ -85,11 +85,14 @@ main {
 .video-wrapper {
   align-self: center;
   flex: 1.5;
-  // height: 100vh;
-  // margin-top: 37vh;
+  height: -webkit-fill-available;
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  margin: 10em 0em;
   iframe {
     width: 51vw;
-    height: 60vh;
+    height: 59vh;
   }
 }
 
