@@ -2,10 +2,8 @@
 // @import "./mixins";
 
 .card {
-  min-width: 13vw !important;
-  // max-width: 13vw !important;
-  margin: 1em !important;
-  transition: ease-in-out .2s;
+  min-width:20vw !important;
+  transition: ease-in-out 0.2s;
   z-index: 9;
   &:hover {
     z-index: 10;
