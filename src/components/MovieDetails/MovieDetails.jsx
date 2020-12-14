@@ -1,4 +1,5 @@
 import React from "react";
+// import {checkBudgetInfo} from '../utilities/dataCleaning'
 import "./MovieDetails.scss";
 import ReactPlayer from "react-player/youtube";
 
@@ -20,18 +21,58 @@ const MovieDetails = props => {
 
   function onLoad() {
     window.scrollTo(0, 0);
+
     const id = props.match.params.movie_id;
     if (+id !== movie_id) {
       props.syncMovieID(id);
     }
+
+    // id && checkBudgetInfo(props.data)
   }
 
   function getVideo(type) {
     const matchedVideo = videos.find(v => v.type === type);
-    return `https://www.youtube.com/watch?v=${matchedVideo.key}`;
+    return `https://www.${matchedVideo.site.toLowerCase()}.com/watch?v=${
+      matchedVideo.key
+    }`;
   }
 
-  const loading = (
+  const getReleaseYear = date => {
+    return release_date.split("-")[0];
+  };
+
+  const getRatingColor = () => {
+    if (rating >= 7) {
+      return { color: "#0ff900" };
+    } else if (rating <= 4.5) {
+      return { color: "#ff5c5c" };
+    } else {
+      return { color: "#f9e600" };
+    }
+  };
+
+  const getProgressBarBadge = () => {
+    const gain = calculateProfit()[1];
+    let color = '';
+    if (gain > 70) {
+      color = 'bg-success'
+    } else if (gain < 30) {
+      color = 'bg-danger'
+    } else {
+      color = 'bg-warning'
+    }
+    return `progress-bar ${color}`
+  }
+
+  const calculateProfit = () => {
+    const gain = revenue / budget;
+    const gainPercent = (gain * 100).toFixed();
+    return gain > 0.99 ? ["100", gainPercent] : [gainPercent, gainPercent];
+  };
+
+  const ratingPercent = ((rating / 10) * 100).toFixed() + "%";
+
+  const loadingScreen = (
     <div style={{ width: "100vh", height: "100vw", display: "flex" }}>
       <h1 style={{ fontSize: "20em", color: "white" }}>LOADING</h1>
     </div>
@@ -40,38 +81,85 @@ const MovieDetails = props => {
   onLoad();
 
   return (
-    <section>
+    <React.Fragment>
       {!title ? (
-        loading
+        loadingScreen
       ) : (
-        <div>
-          <div className='wrapper'>
+        <div className="page-wrapper">
+          <div className="wrapper">
             <img
-              className="img-fluid backdrop kenburns-bottom-left"
+              className="img-fluid kenburns-bottom-left"
               src={backdrop}
               alt=""
             />
           </div>
-          <div className="card-body">
-            <h5 className="card-title text-primary">
-              {title} {((rating / 10) * 100).toFixed() + "%"}
-            </h5>
-            <p className="card-text">
-              <small className="text-white">Release Date {release_date}</small>
-            </p>
-            {tagline && <p>{tagline}</p>}
-            <p>{overview}</p>
-            {genres && genres.map(genre => <p key={genre}>{genre}</p>)}
-            {budget > 0 && <p>Budget: ${budget.toLocaleString()}</p>}
-            {revenue > 0 && <p>Revenue: ${revenue.toLocaleString()}</p>}
-            {runtime > 0 && <p>Runtime: {runtime} minutes</p>}
+          <div className="details-wrapper">
+            <div className="details-text-container">
+              <h1 className="">{title}</h1>
+              <div className="sub-header">
+                <h2 style={getRatingColor()}>{ratingPercent}</h2>
+                <div className="sub-header-release-runtime">
+                  <small>{getReleaseYear(release_date)}</small>
+                  <small style={{ fontWeight: 600 }}>|</small>
+                  <small>{runtime} min</small>
+                </div>
+              </div>
+              {tagline && <h3>{tagline}</h3>}
+              {overview && <p>{overview}</p>}
+              <div className="genres-container">
+                {genres &&
+                  genres.map(genre => (
+                    <h5 key={genre}>
+                      <span className="genre badge badge-secondary">
+                        {genre}
+                      </span>
+                    </h5>
+                  ))}
+              </div>
+              <div className="budget-revenue-container">
+                {budget > 0 && (
+                  <div className="budget-revenue genre badge badge-secondary">
+                    <p>Budget</p>
+                    <p>${budget.toLocaleString()}</p>
+                  </div>
+                )}
+                {revenue > 0 && (
+                  <div className="budget-revenue genre badge badge-secondary">
+                    <p>Revenue</p>
+                    <p>${revenue.toLocaleString()}</p>
+                  </div>
+                )}
+              </div>
+              {budget && revenue && (
+                <div>
+                  <p>Return</p>
+                  <div className="progress-bg badge badge-secondary progress">
+                    <div
+                      className={getProgressBarBadge()}
+                      role="progressbar"
+                      style={{ width: `${calculateProfit()[1]}%` }}
+                      aria-valuenow={calculateProfit()[1]}
+                      aria-valuemin="0"
+                      aria-valuemax="100">
+                      {calculateProfit()[0]}%
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
             {videos.length && (
-              <ReactPlayer url={getVideo("Trailer")} width="100%" />
+              <div className="video-wrapper">
+                <ReactPlayer
+                  controls={true}
+                  url={getVideo("Trailer")}
+                  wrapper="div"
+                />
+              </div>
             )}
           </div>
         </div>
       )}
-    </section>
+    </React.Fragment>
   );
 };
 

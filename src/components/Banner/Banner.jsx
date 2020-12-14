@@ -2,11 +2,12 @@ import React from "react";
 import "./Banner.scss";
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
-import { fakeMovieData } from "../../data/fakeMovieData";
+import { fakeMovieData, filterGoodData } from "../../data/fakeMovieData";
 
+filterGoodData()
 const { movies } = fakeMovieData;
 
-const clone = () => {
+const getRandomMovie = () => {
   const randomIndex = Math.floor(Math.random() * movies.length);
   const randomMovie = movies[randomIndex];
   const {
@@ -19,10 +20,9 @@ const clone = () => {
   return { id, backdrop, rating, release, title };
 };
 
-// TODO refactor user score calculation into utilities
-const randomMovie1 = clone();
-const randomMovie2 = clone();
-const randomMovie3 = clone();
+const randomMovie1 = getRandomMovie();
+const randomMovie2 = getRandomMovie();
+const randomMovie3 = getRandomMovie();
 
 const Banner = (props) => {
   return (
@@ -31,7 +31,7 @@ const Banner = (props) => {
         <Link to={`/movies/${randomMovie1.id}`}>
           <div className="banner-wrapper">
             <img
-              className="d-block w-100"
+              className="d-block w-100 img-fluid kenburns-bottom-left"
               src={randomMovie1.backdrop}
               alt="First slide"
             />
@@ -46,10 +46,10 @@ const Banner = (props) => {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <Link to={`/movies/${randomMovie1.id}`}>
+        <Link to={`/movies/${randomMovie2.id}`}>
           <div className="banner-wrapper">
             <img
-              className="d-block w-100"
+              className="d-block w-100 img-fluid kenburns-bottom-left"
               src={randomMovie2.backdrop}
               alt="Second slide"
             />
@@ -67,7 +67,7 @@ const Banner = (props) => {
         <Link to={`/movies/${randomMovie3.id}`}>
           <div className="banner-wrapper">
             <img
-              className="d-block w-100"
+              className="d-block w-100 img-fluid kenburns-bottom-left"
               src={randomMovie3.backdrop}
               alt="Third slide"
             />

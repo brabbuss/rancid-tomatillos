@@ -1,15 +1,16 @@
 import React from "react";
 import MovieCard from "../MovieCard/MovieCard";
-import Banner from '../Banner/Banner'
+import Banner from "../Banner/Banner";
+import "./Movies.scss";
 
-const Movies = (props) => {
+const Movies = props => {
   const { movies } = props;
 
   return (
     <div>
-      <Banner movies={movies}/>
+      <Banner movies={movies} />
       <main className="bg-dark">
-        <div className="card-deck">
+        <div className="row card-deck">
           {movies.map(movie => (
             <MovieCard
               key={movie.id}

@@ -6,6 +6,7 @@ import {
   getMovieDetailsAPI,
   getMovieVideoAPI,
 } from "./components/utilities/apiCalls";
+import {checkBudgetInfo} from './components/utilities/dataCleaning'
 import ErrorPage from "./components/errorPages/ErrorPage";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
 import NavBar from "./components/NavBar/NavBar";
@@ -19,18 +20,19 @@ class App extends Component {
     movies: [],
     statusError: false,
     statusErrorCode: "",
-    searchResults: []
+    searchResults: [],
   };
 
   componentDidMount = async () => {
     const moviesData = await getMovieDataAPI();
+    const cleanedData = this.filterMovieData(moviesData)
     typeof moviesData === "number"
       ? this.handleError(moviesData)
-      : this.setState({ statusError: false, movies: moviesData });
+      : this.setState({ statusError: false, movies: cleanedData });
   };
 
   getMovieDetails = async id => {
-    await getMovieDetailsAPI(id).then(movie =>
+    await getMovieDetailsAPI(id).then(movie => checkBudgetInfo(movie)).then(movie =>
       this.setState({ selectedMovie: movie })
 
     );
@@ -40,18 +42,31 @@ class App extends Component {
     typeof this.state.selectedMovie === "number" // if movieDetails is a number, then it is an error code returned from API call!
       ? this.handleError(this.state.selectedMovie)
       : this.setState({ statusError: false });
+    const supplementedData = this.state.selectedMovie
+    console.log(supplementedData)
   };
 
   handleError = errorCode => {
     this.setState({ statusError: true, statusErrorCode: errorCode });
   };
 
-  searchMovies = (title) => {
-    const movieMatches = this.state.movies.filter( movie => {
-      return (movie.title).toLowerCase().includes(title.toLowerCase())
-    })
-    this.setState({searchResults: movieMatches})
-  }  
+  filterMovieData = (moviesData) => {
+    return moviesData.filter((movie) => {
+      if (movie.id !== 737173 
+        && movie.id !== 737799
+        || !movie.title
+        || !movie.average_rating) {
+        return movie
+      }
+    });
+  }
+
+  searchMovies = title => {
+    const movieMatches = this.state.movies.filter(movie => {
+      return movie.title.toLowerCase().includes(title.toLowerCase());
+    });
+    this.setState({ searchResults: movieMatches });
+  };
 
   render() {
     const {
@@ -60,12 +75,12 @@ class App extends Component {
       statusErrorCode,
       selectedMovie,
       selectedMovieVideos,
-      searchResults
+      searchResults,
     } = this.state;
 
     return (
       <main>
-        <NavBar searchMovies={this.searchMovies}/>
+        <NavBar searchMovies={this.searchMovies} />
         <Switch>
           <Route
             path="/movies/:movie_id"
@@ -91,10 +106,15 @@ class App extends Component {
               )
             }
           />
-          <Route 
-          path="/results"
-          render={props => 
-          <SearchResults searchResults={searchResults} getMovieDetails={this.getMovieDetails}{...props}/>}
+          <Route
+            path="/results"
+            render={props => (
+              <SearchResults
+                searchResults={searchResults}
+                getMovieDetails={this.getMovieDetails}
+                {...props}
+              />
+            )}
           />
           <Route
             path="/"
