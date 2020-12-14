@@ -25,10 +25,13 @@ class App extends Component {
 
   componentDidMount = async () => {
     const moviesData = await getMovieDataAPI();
-    const cleanedData = this.filterMovieData(moviesData)
-    typeof moviesData === "number"
-      ? this.handleError(moviesData)
-      : this.setState({ statusError: false, movies: cleanedData });
+    
+    if(typeof moviesData === "number") {
+      this.handleError(moviesData)
+    } else {
+      const cleanedData = this.filterMovieData(moviesData)
+      this.setState({ statusError: false, movies: moviesData });
+    } 
   };
 
   getMovieDetails = async id => {
@@ -42,8 +45,6 @@ class App extends Component {
     typeof this.state.selectedMovie === "number" // if movieDetails is a number, then it is an error code returned from API call!
       ? this.handleError(this.state.selectedMovie)
       : this.setState({ statusError: false });
-    const supplementedData = this.state.selectedMovie
-    console.log(supplementedData)
   };
 
   handleError = errorCode => {
