@@ -1,4 +1,5 @@
 import React from "react";
+// import {checkBudgetInfo} from '../utilities/dataCleaning'
 import "./MovieDetails.scss";
 import ReactPlayer from "react-player/youtube";
 
@@ -20,10 +21,13 @@ const MovieDetails = props => {
 
   function onLoad() {
     window.scrollTo(0, 0);
+
     const id = props.match.params.movie_id;
     if (+id !== movie_id) {
       props.syncMovieID(id);
     }
+
+    // id && checkBudgetInfo(props.data)
   }
 
   function getVideo(type) {
@@ -48,7 +52,7 @@ const MovieDetails = props => {
   };
 
   const getProgressBarBadge = () => {
-    const gain = calculateRevenue()[1];
+    const gain = calculateProfit()[1];
     let color = '';
     if (gain > 70) {
       color = 'bg-success'
@@ -60,7 +64,7 @@ const MovieDetails = props => {
     return `progress-bar ${color}`
   }
 
-  const calculateRevenue = () => {
+  const calculateProfit = () => {
     const gain = revenue / budget;
     const gainPercent = (gain * 100).toFixed();
     return gain > 0.99 ? ["100", gainPercent] : [gainPercent, gainPercent];
@@ -84,7 +88,7 @@ const MovieDetails = props => {
         <div className="page-wrapper">
           <div className="wrapper">
             <img
-              className="img-fluid backdrop kenburns-bottom-left"
+              className="img-fluid kenburns-bottom-left"
               src={backdrop}
               alt=""
             />
@@ -133,11 +137,11 @@ const MovieDetails = props => {
                     <div
                       className={getProgressBarBadge()}
                       role="progressbar"
-                      style={{ width: `${calculateRevenue()[1]}%` }}
-                      aria-valuenow={calculateRevenue()[1]}
+                      style={{ width: `${calculateProfit()[1]}%` }}
+                      aria-valuenow={calculateProfit()[1]}
                       aria-valuemin="0"
                       aria-valuemax="100">
-                      {calculateRevenue()[0]}%
+                      {calculateProfit()[0]}%
                     </div>
                   </div>
                 </div>

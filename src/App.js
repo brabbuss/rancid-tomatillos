@@ -6,6 +6,7 @@ import {
   getMovieDetailsAPI,
   getMovieVideoAPI,
 } from "./components/utilities/apiCalls";
+import {checkBudgetInfo} from './components/utilities/dataCleaning'
 import ErrorPage from "./components/errorPages/ErrorPage";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
 import NavBar from "./components/NavBar/NavBar";
@@ -31,7 +32,7 @@ class App extends Component {
   };
 
   getMovieDetails = async id => {
-    await getMovieDetailsAPI(id).then(movie =>
+    await getMovieDetailsAPI(id).then(movie => checkBudgetInfo(movie)).then(movie =>
       this.setState({ selectedMovie: movie })
     );
     await getMovieVideoAPI(id).then(videos =>
@@ -40,6 +41,8 @@ class App extends Component {
     typeof this.state.selectedMovie === "number" // if movieDetails is a number, then it is an error code returned from API call!
       ? this.handleError(this.state.selectedMovie)
       : this.setState({ statusError: false });
+    const supplementedData = this.state.selectedMovie
+    console.log(supplementedData)
   };
 
   handleError = errorCode => {

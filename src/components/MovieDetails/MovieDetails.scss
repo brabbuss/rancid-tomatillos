@@ -1,21 +1,12 @@
-main {
-  background-image: linear-gradient(
-    to top,
-    rgba(255, 111, 0, 0.521),
-    rgba(0, 0, 0, 0.789)
-  );
-  box-shadow: 0px -10px 20px 5px black;
-  position: absolute;
-}
-
 .wrapper {
   overflow: hidden;
-  height: 100vh;
   width: -webkit-fill-available;
-}
+  animation: blur 12s ease-out both;
+  -webkit-animation: blur 5s ease-out both;
 
-.backdrop {
-  width: -webkit-fill-available;
+  img {
+    width: 100vw;
+  }
 }
 
 .page-wrapper {
@@ -25,7 +16,7 @@ main {
 .details-wrapper {
   position: absolute;
   display: flex;
-  height: 100vh;
+  height: 93%;
   width: -webkit-fill-available;
   background-image: linear-gradient(
     to left,
@@ -122,18 +113,14 @@ main {
 }
 
 .budget-revenue {
-  // background-color: black !important;
-  // width: 100%;
   flex: 1;
   display: flex !important;
-  // flex-direction: row !important÷;
   justify-content: center !important;
   align-content: center !important;
   margin: 1em 0.3em;
   padding: 0.5em 1em;
   text-align: center;
   line-height: 1em;
-  // background-color: aqua !important;
   p {
     margin: auto;
     font-weight: 400;
@@ -145,35 +132,54 @@ main {
   animation: kenburns-bottom-left 12s ease-out both;
 }
 
+@-webkit-keyframes blur {
+  0% {
+    filter: blur(15px);
+  }
+  100% {
+    filter: blur(.5px);
+  }
+}
+
+@keyframes blur {
+  0% {
+    filter: blur(15px);
+  }
+  100% {
+    filter: blur(.5px);
+  }
+}
+
 @-webkit-keyframes kenburns-bottom-left {
   0% {
+    filter: blur(10px);
     -webkit-transform: scale(1) translate(0, 0);
     transform: scale(1) translate(0, 0);
     -webkit-transform-origin: 16% 84%;
     transform-origin: 16% 84%;
-    filter: blur(10px);
   }
   100% {
+    filter: blur(1.5px);
     -webkit-transform: scale(1.15) translate(-20px, 15px);
     transform: scale(1.15) translate(-20px, 15px);
     -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
-    filter: blur(1.5px);
   }
 }
+
 @keyframes kenburns-bottom-left {
   0% {
+    filter: blur(10px);
     -webkit-transform: scale(1) translate(0, 0);
     transform: scale(1) translate(0, 0);
     -webkit-transform-origin: 16% 84%;
     transform-origin: 16% 84%;
-    filter: blur(10px);
   }
   100% {
+    filter: blur(1.5px);
     -webkit-transform: scale(1.25) translate(-20px, 15px);
     transform: scale(1.25) translate(-20px, 15px);
     -webkit-transform-origin: left bottom;
     transform-origin: left bottom;
-    filter: blur(1.5px);
   }
 }

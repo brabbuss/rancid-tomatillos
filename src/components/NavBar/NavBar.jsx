@@ -16,6 +16,8 @@ class NavBar extends Component {
 
   searchForMovies = event => {
     this.props.searchMovies(this.state.search);
+    this.setState({search:''});
+    console.log(this.state)
   };
 
   render() {
@@ -58,7 +60,7 @@ class NavBar extends Component {
                 placeholder="Search by Title"
                 aria-label="Search"
                 name="input"
-                value={this.state.input}
+                value={this.state.search}
                 onChange={event => this.handleChange(event)}
               />
               <Link to="/results">
