@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+## Project: The Turing Movie Database - Pair
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Project Team
+Scott Brabson
+https://github.com/brabbuss
 
-## Available Scripts
+Amanda Davidson
+https://github.com/ADavidson02
 
-In the project directory, you can run:
+### Tech Stack
+* React
+* Jest
+* SCSS
+* Router
+* Bootstrap
 
-### `npm start`
+### Overview
+This is a movie review site where users can see newly released movies and click to see more details. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Learning Goals
+* Learn React Testing
+* Create multi-page UX using Router
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Functionality 
+**Main page**
+When a user loads the page a carousel of three random movies is displayed at the top of the page. Below this users will find all movie posters displayed along with their name and rating. 
 
-### `npm test`
+**Movie details view** 
+Once a user clicks on a movie poster they are redirected to a details page. In this view the revenue, budget, genres, an overview and a movie trailer for the selected movie are all shown. To return back to the main view a user can click the home button or on the TMDB icon. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Search**
+A user has the option to search for a movie tile which will lead to a new search results page. From this view they will be presented with a list of movie titles that match their search where they can click into each to see more details. 
 
-### `npm run build`
+### Wins
+* Users are able to type in a URL including the movie id and be routed to that specific movie
+* We completed the extenshion to add a search bar
+* We have 74.83% test coverage
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Challanges
+* Bootstap did not always play well with React
+* Async nature testing in React
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
