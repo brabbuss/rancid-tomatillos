@@ -20,8 +20,6 @@ jest.mock("../components/utilities/apiCalls");
 describe("App", () => {
   beforeEach(() => {
 
-    getMovieDataAPI.mockResolvedValue(fakeMovieData.movies);
-
     getMovieVideoAPI.mockResolvedValue([
       {
         id: 243,
@@ -52,6 +50,8 @@ describe("App", () => {
   });
 
   it("should render movie cards", async () => {
+    getMovieDataAPI.mockResolvedValue(fakeMovieData.movies);
+
     render(
       <BrowserRouter>
         <App />
@@ -65,6 +65,7 @@ describe("App", () => {
   });
 
   it("should show movie details when a poster is clicked", async () => {
+    getMovieDataAPI.mockResolvedValue(fakeMovieData.movies);
     render(
       <MemoryRouter>
         <App />
@@ -82,11 +83,12 @@ describe("App", () => {
   }),
 
     it("should navigate back home from movie details", async () => {
+      getMovieDataAPI.mockResolvedValue(fakeMovieData.movies);
 
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <App />
-        </BrowserRouter>
+        </MemoryRouter>
       );
 
       userEvent.click(
@@ -107,10 +109,11 @@ describe("App", () => {
     }),
 
     it('should search the movies data for input', async () => {
+      getMovieDataAPI.mockResolvedValue(fakeMovieData.movies);
       render(
-        <BrowserRouter>
+        <MemoryRouter>
           <App />
-        </BrowserRouter>
+        </MemoryRouter>
       );
        userEvent.type(screen.getByPlaceholderText("Search by Title"), "Mulan");
        userEvent.click( await waitFor(() => 
@@ -118,5 +121,20 @@ describe("App", () => {
        await waitFor(() =>
        expect(screen.getByText('Mulan 49%')).toBeInTheDocument()
        )
+    }),
+
+    it('should render an error message', async () => {
+      getMovieDataAPI.mockResolvedValue(404)
+
+      render(
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      );
+      
+      await waitForElementToBeRemoved(() => screen.getByRole('button', { name: /next/i }))
+        screen.debug()
+      await waitFor(() => 
+      expect(screen.queryByText('Error Code: 404')).toBeInTheDocument())
     })
 });
