@@ -14,6 +14,7 @@ import {
 import { MemoryRouter, BrowserRouter } from "react-router-dom";
 import { fakeMovieData } from "../data/fakeMovieData";
 import userEvent from "@testing-library/user-event";
+
 jest.mock("../components/utilities/apiCalls");
 
 describe("App", () => {
@@ -103,5 +104,19 @@ describe("App", () => {
       await waitFor(() =>
         expect(screen.queryByText("Ava 51%")).toBeInTheDocument()
       );
-    });
+    }),
+
+    it('should search the movies data for input', async () => {
+      render(
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      );
+       userEvent.type(screen.getByPlaceholderText("Search by Title"), "Mulan");
+       userEvent.click( await waitFor(() => 
+       screen.getByText("Search")))
+       await waitFor(() =>
+       expect(screen.getByText('Mulan 49%')).toBeInTheDocument()
+       )
+    })
 });
