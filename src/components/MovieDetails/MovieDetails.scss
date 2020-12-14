@@ -3,7 +3,8 @@
   width: -webkit-fill-available;
   animation: blur 12s ease-out both;
   -webkit-animation: blur 5s ease-out both;
-
+  height: 67em;
+  max-height: fit-content;
   img {
     width: 100vw;
   }

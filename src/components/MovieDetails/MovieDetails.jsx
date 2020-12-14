@@ -26,8 +26,6 @@ const MovieDetails = props => {
     if (+id !== movie_id) {
       props.syncMovieID(id);
     }
-
-    // id && checkBudgetInfo(props.data)
   }
 
   function getVideo(type) {
