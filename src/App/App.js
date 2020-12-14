@@ -7,7 +7,7 @@ import {
   getMovieVideoAPI,
 } from "../components/utilities/apiCalls";
 import {checkBudgetInfo} from '../components/utilities/dataCleaning'
-import ErrorPage from "../components/ErrorPages/ErrorPage";
+import ErrorPage from "../components/errorPages/ErrorPage";
 import MovieDetails from "../components/MovieDetails/MovieDetails";
 import NavBar from "../components/NavBar/NavBar";
 import Movies from "../components/Movies/Movies";
