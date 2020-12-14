@@ -10,11 +10,11 @@ import {
   getMovieDataAPI,
   getMovieDetailsAPI,
   getMovieVideoAPI,
-} from "./components/utilities/apiCalls";
+} from "../components/utilities/apiCalls";
 import { MemoryRouter, BrowserRouter } from "react-router-dom";
-import { fakeMovieData } from "./data/fakeMovieData";
+import { fakeMovieData } from "../data/fakeMovieData";
 import userEvent from "@testing-library/user-event";
-jest.mock("./components/utilities/apiCalls");
+jest.mock("../components/utilities/apiCalls");
 
 describe("App", () => {
   beforeEach(() => {
@@ -76,7 +76,7 @@ describe("App", () => {
     await waitForElementToBeRemoved(() => screen.getByText("LOADING"));
 
     await waitFor(() =>
-      expect(screen.queryByText("Budget: $200,000,000")).toBeInTheDocument()
+      expect(screen.queryByText("$200,000,000")).toBeInTheDocument()
     );
   }),
 
@@ -97,7 +97,7 @@ describe("App", () => {
       await waitFor(() => screen.queryByText("Budget: $200,000,000"));
       userEvent.click(
         await waitFor(() =>
-          screen.getByRole("link", { name: /rancid tomatillos/i })
+          screen.getByRole("link", { name: /tmdb/i })
         )
       );
       await waitFor(() =>
