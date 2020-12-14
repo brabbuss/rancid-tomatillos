@@ -1,6 +1,5 @@
 import React from "react";
 import SearchResults from "./SearchResults";
-import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
