@@ -48,8 +48,8 @@ describe("MovieDetails", () => {
       <MovieDetails data={movieData} syncMovieID={jest.fn()} {...props} />
     );
 
-    expect(screen.getByText("Mulan 49%")).toBeInTheDocument();
-    expect(screen.getByText("Release Date 2020-09-04")).toBeInTheDocument();
+    expect(screen.getByText("Mulan")).toBeInTheDocument();
+    expect(screen.getByText("2020")).toBeInTheDocument();
     expect(screen.getByRole("img")).toBeInTheDocument();
   });
 
