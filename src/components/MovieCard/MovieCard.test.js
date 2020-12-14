@@ -23,11 +23,11 @@ describe("MovieCard", () => {
     );
 
     expect(
-      screen.getByRole("heading", { name: /money plane 67%/i })
+      screen.getByText('Mulan 49%')
     ).toBeInTheDocument();
-    expect(screen.getByText("Release Date 2020-09-29")).toBeInTheDocument();
+    expect(screen.getByText("Release Date 2020-09-04")).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: /694919 poster/i })
+      screen.getByRole("link", { name: /337401 poster/i })
     ).toBeInTheDocument();
   }),
   
@@ -45,7 +45,7 @@ describe("MovieCard", () => {
         </BrowserRouter>
       );
 
-      userEvent.click(screen.getByRole("link", { name: /694919 poster/i }));
+      userEvent.click(screen.getByRole("link", { name: /337401 poster/i }));
       expect(mockGetMovieDetails).toHaveBeenCalledWith(fakeMovie.id);
     });
 });

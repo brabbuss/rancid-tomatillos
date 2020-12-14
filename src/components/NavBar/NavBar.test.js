@@ -2,19 +2,19 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import NavBar from './NavBar';
-import {BrowserRouter, NavLink, Router} from 'react-router-dom';
+import {MemoryRouter, NavLink, Router} from 'react-router-dom';
 import {createMemoryHistory} from 'history'
 
 describe("NavBar", () => {  
   it('Should render correctly', () => {
     render(
-      <BrowserRouter>
+      <MemoryRouter>
         <NavBar />
-      </BrowserRouter>
+      </MemoryRouter>
     )
 
     expect(screen.queryByText('Home')).toBeInTheDocument();
-    expect(screen.queryByRole("link", { name: /rancid tomatillos/i })).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: /tmdb/i })).toBeInTheDocument();
   }),
 
   it('should include link to home', () => {
@@ -26,7 +26,19 @@ describe("NavBar", () => {
     )
     userEvent.click(screen.queryByRole("link", { name: /home/i }));
     expect(history.location.pathname).toBe("/")
-    userEvent.click(screen.queryByRole("link", { name: /rancid tomatillos/i }));
+    userEvent.click(screen.queryByRole("link", { name: /tmdb/i }));
     expect(history.location.pathname).toBe("/")
+  }),
+
+  it('should accept what a user types in the search bar', () => {
+    const mockSearchMovies = jest.fn()
+    render(
+    <MemoryRouter>
+      <NavBar searchMovies={mockSearchMovies}/>
+    </MemoryRouter>
+      )
+      userEvent.type(screen.getByPlaceholderText('Search by Title'), 'Mulan');
+      userEvent.click(screen.getByText("Search"));
+      expect(mockSearchMovies).toHaveBeenCalledWith('Mulan')
   })
 })
