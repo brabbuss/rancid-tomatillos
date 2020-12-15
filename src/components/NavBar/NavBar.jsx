@@ -17,7 +17,6 @@ class NavBar extends Component {
   searchForMovies = event => {
     this.props.searchMovies(this.state.search);
     this.setState({search:''});
-    console.log(this.state)
   };
 
   render() {
