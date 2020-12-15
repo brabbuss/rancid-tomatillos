@@ -85,9 +85,9 @@ const MovieDetails = props => {
       ) : (
         <div className="page-wrapper">
           <div className="wrapper">
-            <img
-              className="img-fluid kenburns-bottom-left"
-              src={backdrop}
+            <div
+              className="backdrop kenburns-bottom-left"
+              style={{backgroundImage: `url(${backdrop})`}}
               alt=""
             />
           </div>

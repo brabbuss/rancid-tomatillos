@@ -9,7 +9,7 @@ const Movies = props => {
   return (
     <div>
       <Banner movies={movies} />
-      <main className="bg-dark">
+      <section className="bg-dark">
         <div className="row card-deck">
           {movies.map(movie => (
             <MovieCard
@@ -20,7 +20,7 @@ const Movies = props => {
             />
           ))}
         </div>
-      </main>
+      </section>
     </div>
   );
 };

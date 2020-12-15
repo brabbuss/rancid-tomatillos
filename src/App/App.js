@@ -30,7 +30,7 @@ class App extends Component {
       this.handleError(moviesData)
     } else {
       const cleanedData = this.filterMovieData(moviesData)
-      this.setState({ statusError: false, movies: moviesData });
+      this.setState({ statusError: false, movies: cleanedData });
     } 
   };
 
