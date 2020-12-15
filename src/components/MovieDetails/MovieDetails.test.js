@@ -11,11 +11,13 @@ describe("MovieDetails", () => {
 
     const title = screen.getByText("Mulan")
     const releaseYear = screen.getByText("2020")
-    const movieImage = screen.getByRole("img")
-
+    const movieImage = screen.getByRole('heading', { name: /mulan/i })
+    const progressbar = screen.getByRole('progressbar');
+    
     expect(title).toBeInTheDocument();
     expect(releaseYear).toBeInTheDocument();
     expect(movieImage).toBeInTheDocument();
+    expect(progressbar).toBeInTheDocument();
   });
 
   it('should render a tag line if there is one', () => {
