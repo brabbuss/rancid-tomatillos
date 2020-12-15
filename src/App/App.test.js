@@ -19,7 +19,6 @@ jest.mock("../components/utilities/apiCalls");
 
 describe("App", () => {
   beforeEach(() => {
-
     getMovieVideoAPI.mockResolvedValue([
       {
         id: 243,
@@ -59,8 +58,9 @@ describe("App", () => {
     );
 
     const movieCard = await waitFor(() =>
-      screen.getByRole("heading", { name: /mulan 49%/i })
+      screen.getByRole("heading", { name: /mulan/i })
     );
+
     expect(movieCard).toBeInTheDocument();
   });
 
@@ -72,69 +72,66 @@ describe("App", () => {
       </MemoryRouter>
     );
 
-    userEvent.click(
-      await waitFor(() => screen.getByRole("link", { name: /337401 poster/i }))
+    const moviePoster = await waitFor(() =>
+      screen.getByRole("link", { name: /337401 poster/i })
     );
-    await waitForElementToBeRemoved(() => screen.getByText("LOADING"));
+    userEvent.click(moviePoster);
 
-    await waitFor(() =>
-      expect(screen.queryByText("$200,000,000")).toBeInTheDocument()
-    );
+    await waitForElementToBeRemoved(() => screen.getByText("LOADING"));
+    const budgetInfo = screen.queryByText("$200,000,000");
+
+    await waitFor(() => expect(budgetInfo).toBeInTheDocument());
   }),
 
     it("should navigate back home from movie details", async () => {
       getMovieDataAPI.mockResolvedValue(fakeMovieData.movies);
 
       render(
-        <MemoryRouter>
+        <MemoryRouter initialEntries={["/movies/337401"]}>
           <App />
         </MemoryRouter>
       );
 
-      userEvent.click(
-        await waitFor(() =>
-          screen.getByRole("link", { name: /337401 poster/i })
-        )
+      const navLink = await waitFor(() =>
+        screen.getByRole("link", { name: /tmdb/i })
       );
-      await waitForElementToBeRemoved(() => screen.getByText("LOADING"));
-      await waitFor(() => screen.queryByText("Budget: $200,000,000"));
-      userEvent.click(
-        await waitFor(() =>
-          screen.getByRole("link", { name: /tmdb/i })
-        )
-      );
-      await waitFor(() =>
-        expect(screen.queryByText("Ava 51%")).toBeInTheDocument()
-      );
+      userEvent.click(navLink);
+
+      const moviePoster = await waitFor(() => screen.queryByText("Ava"));
+      expect(moviePoster).toBeInTheDocument();
     }),
 
-    it('should search the movies data for input', async () => {
+    it("should search the movies data for input", async () => {
       getMovieDataAPI.mockResolvedValue(fakeMovieData.movies);
       render(
         <MemoryRouter>
           <App />
         </MemoryRouter>
       );
-       userEvent.type(screen.getByPlaceholderText("Search by Title"), "Mulan");
-       userEvent.click( await waitFor(() => 
-       screen.getByText("Search")))
-       await waitFor(() =>
-       expect(screen.getByText('Mulan 49%')).toBeInTheDocument()
-       )
-    }),
 
-    it('should render an error message', async () => {
-      getMovieDataAPI.mockResolvedValue(404)
+      const searchInputField = screen.getByPlaceholderText("Search by Title");
+      const searchButton = await waitFor(() => screen.getByText("Search"))
+      
+      userEvent.type(searchInputField, "Mulan");
+      userEvent.click(searchButton);
+      
+      const movieCard = await waitFor(() => screen.getByText("Mulan"));
+      await waitFor(() => expect(movieCard).toBeInTheDocument());
+    }),
+    
+    it("should render an error message", async () => {
+      getMovieDataAPI.mockResolvedValue(404);
 
       render(
         <MemoryRouter>
           <App />
         </MemoryRouter>
       );
+
+      const bannerButton = screen.getByRole("button", { name: /next/i });
+      await waitForElementToBeRemoved(bannerButton);
       
-      await waitForElementToBeRemoved(() => screen.getByRole('button', { name: /next/i }))
-        screen.debug()
-      await waitFor(() => 
-      expect(screen.queryByText('Error Code: 404')).toBeInTheDocument())
-    })
+      const errorMessage = screen.queryByText("Error Code: 404");
+      expect(errorMessage).toBeInTheDocument()
+    });
 });

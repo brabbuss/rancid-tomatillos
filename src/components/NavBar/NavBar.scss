@@ -1,7 +1,6 @@
 .navbar {
   background-color: black !important;
   height: 5.1em !important;
-  width: 100vw;
 }
 
 .navbar-brand {
@@ -23,6 +22,13 @@
 }
 
 ul {
-  margin-right: 3em;
+  margin-right: 1vw;
   font-size: 1.6em;
+  a {
+    font-size: .9em;
+  }
+}
+
+input {
+  min-width: 20vw;
 }

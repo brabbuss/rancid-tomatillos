@@ -9,8 +9,8 @@ const Movies = props => {
   return (
     <div>
       <Banner movies={movies} />
-      <main className="bg-dark">
-        <div className="row card-deck">
+      <section className=" bg-dark">
+        <div className="container-fluid row card-deck">
           {movies.map(movie => (
             <MovieCard
               key={movie.id}
@@ -20,7 +20,7 @@ const Movies = props => {
             />
           ))}
         </div>
-      </main>
+      </section>
     </div>
   );
 };

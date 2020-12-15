@@ -22,30 +22,31 @@ describe("MovieCard", () => {
       </BrowserRouter>
     );
 
-    expect(
-      screen.getByText('Mulan 49%')
-    ).toBeInTheDocument();
-    expect(screen.getByText("Release Date 2020-09-04")).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: /337401 poster/i })
-    ).toBeInTheDocument();
+    const movieTitle = screen.queryByText('Mulan')
+    const releaseDate = screen.queryByText("Release Date 2020-09-04")
+    const imageLink = screen.queryByRole("link", { name: /337401 poster/i })
+
+    expect(movieTitle).toBeInTheDocument();
+    expect(releaseDate).toBeInTheDocument();
+    expect(imageLink).toBeInTheDocument();
   }),
   
-    it("should call get movie details with the correct params", () => {
-      const mockGetMovieDetails = jest.fn();
-      const fakeMovie = fakeMovieData.movies[0];
+  it("should call get movie details with the correct params", () => {
+    const mockGetMovieDetails = jest.fn();
+    const fakeMovie = fakeMovieData.movies[0];
 
-      render(
-        <BrowserRouter>
-          <MovieCard
-            key={fakeMovie.id}
-            data={fakeMovie}
-            getMovieDetails={mockGetMovieDetails}
-          />
-        </BrowserRouter>
-      );
+    render(
+      <BrowserRouter>
+        <MovieCard
+          key={fakeMovie.id}
+          data={fakeMovie}
+          getMovieDetails={mockGetMovieDetails}
+        />
+      </BrowserRouter>
+    );
 
-      userEvent.click(screen.getByRole("link", { name: /337401 poster/i }));
-      expect(mockGetMovieDetails).toHaveBeenCalledWith(fakeMovie.id);
-    });
+    const imageLink = screen.queryByRole("link", { name: /337401 poster/i })
+    userEvent.click(imageLink);
+    expect(mockGetMovieDetails).toHaveBeenCalledWith(fakeMovie.id);
+  });
 });

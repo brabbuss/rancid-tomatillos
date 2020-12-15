@@ -2,9 +2,8 @@ import React from "react";
 import "./Banner.scss";
 import Carousel from "react-bootstrap/Carousel";
 import { Link } from "react-router-dom";
-import { fakeMovieData, filterGoodData } from "../../data/fakeMovieData";
+import { fakeMovieData } from "../../data/fakeMovieData";
 
-filterGoodData()
 const { movies } = fakeMovieData;
 
 const getRandomMovie = () => {
@@ -24,7 +23,7 @@ const randomMovie1 = getRandomMovie();
 const randomMovie2 = getRandomMovie();
 const randomMovie3 = getRandomMovie();
 
-const Banner = (props) => {
+const Banner = () => {
   return (
     <Carousel>
       <Carousel.Item>

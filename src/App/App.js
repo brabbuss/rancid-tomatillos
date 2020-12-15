@@ -7,7 +7,7 @@ import {
   getMovieVideoAPI,
 } from "../components/utilities/apiCalls";
 import {checkBudgetInfo} from '../components/utilities/dataCleaning'
-import ErrorPage from "../components/ErrorPages/ErrorPage";
+import ErrorPage from "../components/errorPages/ErrorPage";
 import MovieDetails from "../components/MovieDetails/MovieDetails";
 import NavBar from "../components/NavBar/NavBar";
 import Movies from "../components/Movies/Movies";
@@ -30,7 +30,7 @@ class App extends Component {
       this.handleError(moviesData)
     } else {
       const cleanedData = this.filterMovieData(moviesData)
-      this.setState({ statusError: false, movies: moviesData });
+      this.setState({ statusError: false, movies: cleanedData });
     } 
   };
 
