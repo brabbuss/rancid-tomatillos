@@ -17,15 +17,16 @@ describe("ErrorPage", () => {
 
     expect(screen.queryByText("Error Code: 400")).toBeInTheDocument();
   }),
-    it("should have an error message for 404 errors", () => {
-      const mockErrorCode = 404;
-      const mockProps = [];
+  
+  it("should have an error message for 404 errors", () => {
+    const mockErrorCode = 404;
+    const mockProps = [];
 
-      render(
-        <MemoryRouter>
-          <ErrorPage errorCode={mockErrorCode} {...mockProps} />
-        </MemoryRouter>
-      );
-      expect(screen.queryByText("Error Code: 404")).toBeInTheDocument();
-    });
+    render(
+      <MemoryRouter>
+        <ErrorPage errorCode={mockErrorCode} {...mockProps} />
+      </MemoryRouter>
+    );
+    expect(screen.queryByText("Error Code: 404")).toBeInTheDocument();
+  });
 });
