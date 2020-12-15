@@ -58,7 +58,7 @@ describe("App", () => {
     );
 
     const movieCard = await waitFor(() =>
-      screen.getByRole("heading", { name: /mulan 49%/i })
+      screen.getByRole("heading", { name: /mulan/i })
     );
 
     expect(movieCard).toBeInTheDocument();
@@ -97,7 +97,7 @@ describe("App", () => {
       );
       userEvent.click(navLink);
 
-      const moviePoster = await waitFor(() => screen.queryByText("Ava 51%"));
+      const moviePoster = await waitFor(() => screen.queryByText("Ava"));
       expect(moviePoster).toBeInTheDocument();
     }),
 
@@ -115,7 +115,7 @@ describe("App", () => {
       userEvent.type(searchInputField, "Mulan");
       userEvent.click(searchButton);
       
-      const movieCard = await waitFor(() => screen.getByText("Mulan 49%"));
+      const movieCard = await waitFor(() => screen.getByText("Mulan"));
       await waitFor(() => expect(movieCard).toBeInTheDocument());
     }),
     

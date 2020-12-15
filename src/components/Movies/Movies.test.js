@@ -43,7 +43,7 @@ describe("Movies", () => {
         </MemoryRouter>
     )
 
-    expect(screen.getByText('Rogue 54%')).toBeInTheDocument();
+    expect(screen.getByText('Rogue')).toBeInTheDocument();
     expect(screen.queryByText('Release Date 2020-09-29')).toBeInTheDocument();
   })
 })

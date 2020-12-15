@@ -22,7 +22,7 @@ describe("MovieCard", () => {
       </BrowserRouter>
     );
 
-    const movieTitle = screen.queryByText('Mulan 49%')
+    const movieTitle = screen.queryByText('Mulan')
     const releaseDate = screen.queryByText("Release Date 2020-09-04")
     const imageLink = screen.queryByRole("link", { name: /337401 poster/i })
 
