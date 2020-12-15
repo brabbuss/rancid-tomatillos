@@ -8,6 +8,7 @@
 ---
 
 ![Screen Shot 2020-12-15 at 1 15 43 PM](https://user-images.githubusercontent.com/67513823/102267812-aca02800-3ed7-11eb-9bef-f1bdc34d05a6.png)
+
 *Homepage*
 
 
@@ -42,9 +43,12 @@ There's more info under here about the functionality being described!
 
 ## Features 
 
-![TMDB-main](https://user-images.githubusercontent.com/67513823/102267276-e7559080-3ed6-11eb-957b-d1306d94a7e8.gif)[Main screen]
+![TMDB-main](https://user-images.githubusercontent.com/67513823/102267276-e7559080-3ed6-11eb-957b-d1306d94a7e8.gif)
 
-**Main page**
+*Homepage*
+
+**Main Page**
+
 The homepage provides users with the traditional landing page experience. A sticky navbar up top with search functionality and a way to get back to the homepage, a hero banner carousel that can click through to movie details, and an array of movies in the main body of the site displayed along with their name and rating. 
 
 <details>
@@ -71,9 +75,11 @@ The movie data is retrieved inside of the `componentDidMount()` method of the `<
 </details>
 
 ![TMDB-movieClick](https://user-images.githubusercontent.com/67513823/102267459-2b489580-3ed7-11eb-9a9d-c57958328c6e.gif)
+
 *Movie details*
 
-**Movie details view** 
+**Movie Details View** 
+
 Once a user clicks on a movie poster they are redirected to a details page. In this view the revenue, budget (with a bar to display ROI), genres, an overview and a movie trailer for the selected movie are all shown. To return back to the main view a user can click the home button or on the TMDB icon. 
 
 <details>
@@ -92,9 +98,11 @@ On refresh or direct navigation, the page persists (except for strange behavior 
 </details>
 
 ![TMDB-search](https://user-images.githubusercontent.com/67513823/102267517-3f8c9280-3ed7-11eb-9193-1926d7d3f2a0.gif)
-*Search movie*
+
+*Search*
 
 **Search**
+
 A user has the option to search for a movie tile which will lead to a new search results page. From this view they will be presented with a list of movie titles that match their search where they can click into each to see more details. 
 
 <details>
@@ -111,17 +119,20 @@ Pleasantly simple to implement! Search functionality is a twofold process. The `
 ## Reflection
 
 #### Wins
+
 * Users are able to type in a URL including the movie id and be routed to that specific movie
 * Search functionality
 * Detailed and thoughtful styling and UI
 * Rendered components have 100% test coverage (74.83% total test coverage)
 
 #### Challanges
+
 * Asynchronous testing in React
 * Starting with a full web build and trying to style for mobile afterward was difficult and ultimately unincorporated before submission deadline
 * Bootstrap is meant for mobile first, then expand to desktop second - a team design oversight 
 
 #### Future
+
 * Express server or alternative APIs to increase functionality and availability of different types of information
 * Gamify a rating system for users with simple badges and notifications
 
